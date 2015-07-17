@@ -1,0 +1,23 @@
+<div id="main-header" class="jumbotron">
+    <div class="container">
+        <h1 class="text-center text-primary">Fashion Meets Computer Vision and Natural Language Processing</h1>
+
+        <p class="text-justify text-info"> We present a model that generates natural language descriptions of images and their regions. Our approach leverages datasets of images and their sentence descriptions to learn about the inter-modal correspondences between language and visual data. Our alignment model is based on a novel combination of Convolutional Neural Networks over image regions, bidirectional Recurrent Neural Networks over sentences, and a structured objective that aligns the two modalities through a multimodal embedding. We then describe a Multimodal Recurrent Neural Network architecture that uses the inferred alignments to learn to generate novel descriptions of image regions. We demonstrate that our alignment model produces state of the art results in retrieval experiments on Flickr8K, Flickr30K and MSCOCO datasets. We then show that the generated descriptions significantly outperform retrieval baselines on both full images and on a new dataset of region-level annotations.
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4" ng-repeat="demotype in demotypeList">
+            <h2>{{demotype.title}}</h2>
+            <p class="text-justify">{{demotype.description}}</p>
+            <button ng-click="showDemo(demotype.templateUrl)"
+                    ng-class="{'btn': true, 'btn-primary': demoTypeUrl != demotype.templateUrl, 'active': demoTypeUrl == demotype.templateUrl, 'btn-success': demoTypeUrl == demotype.templateUrl}">
+                View Results <span ng-class="{'glyphicon': true, 'glyphicon-chevron-right':demoTypeUrl != demotype.templateUrl, 'glyphicon-chevron-down':demoTypeUrl == demotype.templateUrl }" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+    <hr>
+
+    <div ng-include="demoTypeUrl"></div>
+</div>
