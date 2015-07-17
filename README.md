@@ -1,2 +1,2 @@
-# FashionNLP
-Fashion Meets Computer Vision and Natural Language Processing
+# NLP Image search
+
