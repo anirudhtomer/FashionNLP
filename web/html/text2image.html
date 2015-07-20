@@ -4,7 +4,7 @@
     </div>
 
     <div class="row image-row" ng-repeat="item in items">
-        <h3 class="text-center">({{$index}}) Textual Query:
+        <h3 class="text-center">Textual Query:
         <span class="text-muted text-capitalize">{{item.wordTrueProjection}}</span></h3>
         <div class="col-xs-3 text-center" ng-repeat="imageUrl in item.imageUrls">
             <img class="text2image-img" ng-src="{{imageUrl}}"/>
