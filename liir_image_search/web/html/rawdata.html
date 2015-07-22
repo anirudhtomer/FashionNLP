@@ -1,0 +1,26 @@
+<div ng-controller="RawDataCtrl">
+    <div class="demo-header-box navbar-inverse">
+        <h1 class="text-center demo-template-heading">Raw Data</h1>
+    </div>
+
+    <div class="row image-row" ng-repeat="i in rowIndexArray">
+        <div class="col-md-6 text-center image-item" ng-repeat="j in [0,1]">
+            <h3 class="text-center">{{items[i*2 + j].title}}</h3>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <img class="rawdataimage" ng-src="{{items[i*2 + j].imageUrl}}"/>
+                </div>
+
+                <div class="col-xs-6">
+                    <h4 class="text-center text-info">Description</h4>
+                    <p class="text-muted text-justify">{{items[i*2 + j].description | NAFilter}}</p>
+                    <h4 class="text-center text-info">Features</h4>
+                    <ul>
+                        <li class="text-left text-muted" ng-repeat="feature in items[i*2 + j].features">{{feature}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
