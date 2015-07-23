@@ -1,9 +1,12 @@
 from flask import Blueprint
-import json
+import json, logging, logging.config
 
-config_file = open("config.json", "r")
-app_config = json.load(config_file)
-config_file.close()
+with open("logging.json", "r") as logging_file:
+    logging.config.dictConfig(json.load(logging_file))
+logger = logging.getLogger(__name__.split('.')[0])
+
+with open("config.json", "r") as config_file:
+    app_config = json.load(config_file)
 
 static_page_service = Blueprint("static_page_service" ,__name__, static_folder="../" + app_config['static_folder'])
 
@@ -14,3 +17,5 @@ def index():
 @static_page_service.route("/<path:url_path>", methods=['GET'])
 def request_static_file(url_path):
     return static_page_service.send_static_file(url_path)
+
+logger.info("loaded: " + __name__)
