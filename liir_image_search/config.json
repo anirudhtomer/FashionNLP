@@ -1,0 +1,9 @@
+{
+  "__COMMENT__": "all path should be relative to the root folder which is liir_image_search",
+
+  "server_port": 8076,
+  "sqlite_uri": "sqlite:///F:/work/liir.susana/NLPImageSearch/liir_image_search/database.db",
+  "static_folder": "web",
+  "vocabulary_file": "vocabulary/zappos.words"
+
+}
