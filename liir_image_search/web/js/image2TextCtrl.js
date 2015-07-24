@@ -1,7 +1,7 @@
 susana.controller(
     'Image2TextCtrl',
-    ['$scope', '$http',
-        function ($scope, $http) {
+    ['$scope', '$http', 'DataService',
+        function ($scope, $http, DataService) {
 
             var favoriteImages = [57, 58, 68, 299, 75, 646, 647, 16, 286, 275, 204, 29];
 
@@ -32,6 +32,7 @@ susana.controller(
                     $scope.items[k++] = createItem(data.items[i]);
                 }
             });
+
         }
     ]
 );

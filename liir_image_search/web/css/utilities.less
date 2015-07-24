@@ -1,0 +1,78 @@
+.text-white{
+  color: white;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-size {
+  .full-height;
+  .full-width;
+}
+
+.no-padding-margin {
+  margin: 0px;
+  padding: 0px;
+}
+
+.min-height(@height) {
+  min-height: -webkit-calc(@height);
+  min-height: -moz-calc(@height);
+  min-height: calc(@height);
+}
+
+.height(@height) {
+  height: -webkit-calc(@height);
+  height: -moz-calc(@height);
+  height: calc(@height);
+}
+
+.width(@width) {
+  width: -webkit-calc(@width);
+  width: -moz-calc(@width);
+  width: calc(@width);
+}
+
+.top(@top: 0px) {
+  top: -webkit-calc(@top);
+  top: -moz-calc(@top);
+  top: calc(@top);
+}
+
+.left(@left: 0px) {
+  left: -webkit-calc(@left);
+  left: -moz-calc(@left);
+  left: calc(@left);
+}
+
+.margin(@top: 0px, @right: 0px, @bottom: 0px, @left: 0px) {
+  margin: -webkit-calc(@top) -webkit-calc(@right) -webkit-calc(@bottom) -webkit-calc(@left);
+  margin: -moz-calc(@top) -moz-calc(@right) -moz-calc(@bottom) -moz-calc(@left);
+  margin: calc(@top) calc(@right) calc(@bottom) calc(@left);
+}
+
+.padding(@top: 0px, @right: 0px, @bottom: 0px, @left: 0px) {
+  padding: -webkit-calc(@top) -webkit-calc(@right) -webkit-calc(@bottom) -webkit-calc(@left);
+  padding: -moz-calc(@top) -moz-calc(@right) -moz-calc(@bottom) -moz-calc(@left);
+  padding: calc(@top) calc(@right) calc(@bottom) calc(@left);
+}
+
+/* Sizes given in percentage are calculated after creating box model */
+.border-box {
+  //	border: 1px solid red;
+  box-sizing: border-box; /* IE, Opera and Chrome */
+  -moz-box-sizing: border-box; /* Firefox */
+  -webkit-box-sizing: border-box; /* Safari */
+  -ms-box-sizing: border-box;
+}
+
+.main-container {
+  .full-size;
+  .no-padding-margin;
+  .border-box;
+}

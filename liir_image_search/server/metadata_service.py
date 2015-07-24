@@ -15,6 +15,7 @@ metadata_service = Blueprint("metadata_service", __name__)
 
 @metadata_service.route("/metadata/getvocab", methods=['POST'])
 def get_vocab():
-    return jsonify(**vocab_words)
+
+    return jsonify(vocab=vocab_words)
 
 logger.info("loaded: " + __name__)

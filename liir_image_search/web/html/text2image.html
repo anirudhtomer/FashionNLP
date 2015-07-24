@@ -3,6 +3,33 @@
         <h1 class="text-center demo-template-heading">Text to Image Demo</h1>
     </div>
 
+    <div class="row panel panel-default search-box">
+        <ul class="col-xs-12">
+            <li ng-repeat="keyword in filterKeywords">
+                <div class="filtered-keywords text-white">
+                    <span>{{keyword}}</span>
+                    <span class="text-right close-mark" ng-click="removeKeyword($index)">&times;</span>
+                </div>
+            </li>
+
+            <li class="keyword-search-input-box">
+                <div class="input-group search-group">
+                    <input ng-model="search.filterText" class="form-control" placeholder="Enter search keywords"
+                           ng-click="search.showVocabulary=true">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-search text-primary"></i></span>
+                </div>
+
+                <div ng-show="search.showVocabulary">
+                    <div ng-repeat="i in archiveCountSequence track by $index"
+                         ng-class="{'selectable-archive': !selectedArchivesSet[filteredArchiveKeys[$index]]}"
+                         ng-click="addArchive($event, filteredArchiveKeys[$index]);">
+                        <span> {{filteredArchiveKeys[$index]}}</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
     <div class="row image-row" ng-repeat="item in items">
         <h3 class="text-center">Textual Query:
         <span class="text-muted text-capitalize">{{item.wordTrueProjection}}</span></h3>
