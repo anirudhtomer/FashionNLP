@@ -1,60 +1,81 @@
 @import "constants";
 
-.search-box{
+.search-box {
+  margin-bottom: 3px;
   border-color: @brand-primary;
+  padding-right: 0px;
 
-  ul{
-    margin-bottom: 3px;
-    li{
+  li {
+    float: left;
+    list-style: none;
+
+    .filtered-keywords {
       float: left;
-      list-style: none;
 
-      .filtered-keywords{
-        float: left;
+      background: @brand-primary;
+      border-color: darken(@brand-primary, 5%);
+      border-radius: 3px;
 
-        background: @brand-primary;
-        border-color: darken(@brand-primary, 5%);
-        border-radius: 3px;
+      padding-left: 5px;
+      padding-right: 5px;
 
-        padding-left: 5px;
-        padding-right: 5px;
+      margin-top: 5px;
+      margin-right: 10px;
 
-        margin-top: 5px;
-        margin-right: 10px;
+      .close-mark {
+        cursor: pointer;
+        margin-left: 5px;
+        font-size: 16px;
+        opacity: 0.7;
 
-        .close-mark{
-          cursor: pointer;
-          margin-left: 5px;
-          font-size: 16px;
-          opacity: 0.7;
+        &:hover {
+          opacity: 1.0;
+        }
+      }
+    }
+  }
 
-          &:hover{
-            opacity: 1.0;
-          }
+  li.keyword-search-box {
+    min-width: 200px;
+    width: 100%;
+    .search-group {
+      height: 30px;
+
+      span {
+        border: none;
+        background: none;
+        height: inherit;
+      }
+      input {
+        height: inherit;
+        padding: 0px;
+        border: none;
+        box-shadow: none;
+
+        &:focus {
+          box-shadow: none;
         }
       }
     }
 
-    li.keyword-search-input-box{
-      .search-group {
-        width: 400px;
-        height: 30px;
+    .keyword-select-dropdown {
 
-        span {
-          border: none;
-          background: none;
-          height: inherit;
-        }
-        input {
-          height: inherit;
-          padding: 0px;
-          border: none;
-          box-shadow: none;
+      max-height: 200px;
+      overflow-y: scroll;
 
-          &:focus {
-            box-shadow: none;
-          }
+      .selectable-keyword {
+        cursor: pointer;
+        color: black;
+
+        &:hover, &:focus {
+          background-color: @brand-primary;
+          color: white;
         }
+      }
+
+      .keyword-text{
+        padding: 3px 0px 3px 8px;
+        margin-bottom: 0px;
       }
     }
   }

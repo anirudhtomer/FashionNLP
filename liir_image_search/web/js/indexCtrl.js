@@ -1,7 +1,9 @@
 susana.controller(
     'IndexCtrl',
-    ['$scope',
-        function ($scope) {
+    ['$scope', 'DataService',
+        function ($scope, DataService) {
+            //DataService is included to load vocabulary in advance before any controller: to be replaced with promises
+
             $scope.demotypeList = [
                 {
                     title: "Raw Data",

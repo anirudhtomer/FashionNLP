@@ -3,49 +3,89 @@ susana.controller(
     ['$scope', '$http', 'DataService',
         function ($scope, $http, DataService) {
 
-            $scope.totalWords = 100;
-            $scope.items = [];
+            var MIN_WORDS_TO_SHOW = 10;
+            var LOAD_MORE_WORDS_COUNT = 10;
 
-            $scope.vocabulary=[];
-            $scope.filterKeywords = DataService.retrieveData('filterKeywords');
-            if(angular.isUndefined($scope.filterKeywords)){
-                $scope.filterKeywords = ['a-line','red','a-linesd','reasfrd','a-liarfsne','reagd','a-lineasd','redasd','a-linde','read','a-daline','regfsad','a-lbine','wred','a-sdfline'];
-            }
+            $scope.vocabulary = [];
+            $scope.filteredImages = [];
 
-            $scope.removeKeyword=function(index){
-                $scope.filterKeywords.splice(index, 1);
+            $scope.removeKeyword = function (keyword) {
+                delete $scope.filterKeywordsMap[keyword];
+                $scope.searchImages();
             };
 
-            $scope.search={
+            $scope.addKeyword = function (keyword) {
+                if (angular.isUndefined($scope.filterKeywordsMap[keyword])) {
+                    $scope.filterKeywordsMap[keyword] = keyword;
+                }
+
+                $scope.searchImages();
+            };
+
+            $scope.searchImages = function () {
+                var filterKeywords = [];
+
+                for (var keyword in $scope.filterKeywordsMap) {
+                    if ($scope.filterKeywordsMap.hasOwnProperty(keyword)) {
+                        filterKeywords.push(keyword);
+                    }
+                }
+
+                if (filterKeywords.length > 0) {
+                    $http({
+                        method: 'POST',
+                        url: 'search/text2image',
+                        data: {keywords: filterKeywords}
+                    }).success(function (data) {
+                        $scope.filteredImages = data.images;
+                        $scope.imageRowSequence = new Array(Math.ceil($scope.filteredImages.length / 4))
+                    });
+                } else {
+                    $scope.filteredImages.length = 0;
+                    $scope.imageRowSequence = new Array(0);
+                }
+            };
+
+            $scope.isSelectableKeyword = function (keyword) {
+                return angular.isUndefined($scope.filterKeywordsMap[keyword]);
+            };
+
+            $scope.search = {
                 filterText: "",
-                showVocabulary: false
+                showVocabularyDropdown: false
             };
 
             $scope.$watch('search.filterText', filterVocabulary);
 
-            function filterVocabulary(){
+            function filterVocabulary() {
                 var filteredVocab = DataService.getVocabTrie().search($scope.search.filterText);
-
-               $scope.vocabulary = filteredVocab.values();
+                $scope.vocabulary = filteredVocab.values();
+                $scope.vocabCountSequence = new Array(($scope.vocabulary.length > MIN_WORDS_TO_SHOW) ? MIN_WORDS_TO_SHOW : $scope.vocabulary.length);
             }
 
-            function createItem(jsonObj){
-                imgUrls = jsonObj.predicted_imgs.slice(0, 4);
-                for (var j = 0; j < 4; j++) {
-                    imgUrls[j] = imgUrls[j].split("data/")[1];
+            $scope.loadMoreVocabulary = function () {
+                if ($scope.vocabCountSequence.length < $scope.vocabulary.length) {
+                    var remainingElements = $scope.vocabulary.length - $scope.vocabCountSequence.length;
+                    var newLength = $scope.vocabCountSequence.length + ((LOAD_MORE_WORDS_COUNT < remainingElements) ? LOAD_MORE_WORDS_COUNT : remainingElements);
+                    $scope.vocabCountSequence = new Array(newLength);
                 }
+            };
 
-                return {
-                    imageUrls: imgUrls,
-                    wordTrueProjection: jsonObj.words_true_proj.join().replace(/,/g, ", ").replace(/_/g, " ")
-                };
-            }
-
-            $http({method: 'POST', url: 'json/txt2img'}).success(function (data) {
-                for (var i = 0; i < $scope.totalWords; i++) {
-                    $scope.items[i] = createItem(data.items[i]);
-                }
+            $scope.$on("$destroy", function () {
+                console.log("destroy called");
+                DataService.storeData('filterKeywordsMap', $scope.filterKeywordsMap);
             });
+
+            $scope.undefinedFilter = function(imageRowNum,imageNum){
+                return angular.isUndefined($scope.filteredImages[imageRowNum*4 + imageNum]);
+            };
+
+            $scope.filterKeywordsMap = DataService.retrieveData('filterKeywordsMap');
+            if (angular.isUndefined($scope.filterKeywordsMap)) {
+                $scope.filterKeywordsMap = {};
+            }else{
+                $scope.searchImages();
+            }
         }
     ]
 );

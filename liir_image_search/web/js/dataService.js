@@ -14,19 +14,24 @@ susana.factory(
                 vocabulary = data.vocab;
                 vocabLoaded = true;
 
-                for(var i=0; i<vocabulary.length; i++){
+                for (var i = 0; i < vocabulary.length; i++) {
                     currentWord = vocabulary[i];
                     splitByHyphen = currentWord.split("-");
+                    splitByUnderscore = currentWord.split("_");
                     splitBySpace = currentWord.split(" ");
-                    if(splitByHyphen.length>1){
-                        for(j=0;j<splitByHyphen.length; j++){
+                    if (splitByHyphen.length > 1) {
+                        for (var j = 0; j < splitByHyphen.length; j++) {
                             vocabTrie.addWord(splitByHyphen[j], currentWord)
                         }
-                    }else if(splitBySpace.length>1){
-                        for(j=0;j<splitBySpace.length; j++){
+                    } else if (splitByUnderscore.length > 1) {
+                        for (var j = 0; j < splitByUnderscore.length; j++) {
+                            vocabTrie.addWord(splitByUnderscore[j], currentWord)
+                        }
+                    } else if (splitBySpace.length > 1) {
+                        for (var j = 0; j < splitBySpace.length; j++) {
                             vocabTrie.addWord(splitBySpace[j], currentWord)
                         }
-                    }else{
+                    } else {
                         vocabTrie.addWord(currentWord, currentWord)
                     }
                 }
@@ -47,7 +52,7 @@ susana.factory(
                 }
             }
 
-            function getVocabTrie(){
+            function getVocabTrie() {
                 return vocabTrie;
             }
 

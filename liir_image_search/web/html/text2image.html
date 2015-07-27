@@ -3,38 +3,36 @@
         <h1 class="text-center demo-template-heading">Text to Image Demo</h1>
     </div>
 
-    <div class="row panel panel-default search-box">
-        <ul class="col-xs-12">
-            <li ng-repeat="keyword in filterKeywords">
+    <div class="row">
+        <ul class="col-sm-offset-2 col-sm-8 col-xs-12 panel panel-default search-box">
+            <li ng-repeat="(keyword, keyword) in filterKeywordsMap">
                 <div class="filtered-keywords text-white">
-                    <span>{{keyword}}</span>
-                    <span class="text-right close-mark" ng-click="removeKeyword($index)">&times;</span>
+                    <span class="text-capitalize">{{keyword | UnderscoreFilter}}</span>
+                    <span class="text-right close-mark" ng-click="removeKeyword(keyword)" title="Remove">&times;</span>
                 </div>
             </li>
 
-            <li class="keyword-search-input-box">
+            <li class="keyword-search-box">
                 <div class="input-group search-group">
                     <input ng-model="search.filterText" class="form-control" placeholder="Enter search keywords"
-                           ng-click="search.showVocabulary=true">
+                           ng-click="search.showVocabularyDropdown=true">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-search text-primary"></i></span>
                 </div>
 
-                <div ng-show="search.showVocabulary">
-                    <div ng-repeat="i in archiveCountSequence track by $index"
-                         ng-class="{'selectable-archive': !selectedArchivesSet[filteredArchiveKeys[$index]]}"
-                         ng-click="addArchive($event, filteredArchiveKeys[$index]);">
-                        <span> {{filteredArchiveKeys[$index]}}</span>
+                <div ng-show="search.showVocabularyDropdown" class="keyword-select-dropdown" infinite-scroll scroll-reached-bottom-callback="loadMoreVocabulary">
+                    <div ng-repeat="keywordNum in vocabCountSequence track by $index"
+                         ng-click="addKeyword(vocabulary[$index]);">
+                        <p ng-class="{'selectable-keyword': isSelectableKeyword(vocabulary[$index]), 'text-muted': true, 'keyword-text': true, 'text-capitalize': true}"> {{vocabulary[$index] | UnderscoreFilter}}</p>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
 
-    <div class="row image-row" ng-repeat="item in items">
-        <h3 class="text-center">Textual Query:
-        <span class="text-muted text-capitalize">{{item.wordTrueProjection}}</span></h3>
-        <div class="col-xs-3 text-center" ng-repeat="imageUrl in item.imageUrls">
-            <img class="text2image-img" ng-src="{{imageUrl}}"/>
+    <div class="row image-row" ng-repeat="imageRowNum in imageRowSequence track by $index">
+        <div class="col-sm-3 text-center" ng-repeat="imageNum in [0,1,2,3]" ng-hide="undefinedFilter($parent.$index, imageNum)">
+            <img class="text2image-img" ng-src="{{filteredImages[$parent.$index*4 + imageNum].url}}"/>
+            <p class="text-muted lead"> {{'Score:' + filteredImages[$parent.$index*4 + imageNum].score}}</p>
         </div>
     </div>
 </div>

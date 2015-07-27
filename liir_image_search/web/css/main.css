@@ -39,16 +39,15 @@
   -ms-box-sizing: border-box;
 }
 .search-box {
-  border-color: #337ab7;
-}
-.search-box ul {
   margin-bottom: 3px;
+  border-color: #337ab7;
+  padding-right: 0px;
 }
-.search-box ul li {
+.search-box li {
   float: left;
   list-style: none;
 }
-.search-box ul li .filtered-keywords {
+.search-box li .filtered-keywords {
   float: left;
   background: #337ab7;
   border-color: #2e6da4;
@@ -58,32 +57,52 @@
   margin-top: 5px;
   margin-right: 10px;
 }
-.search-box ul li .filtered-keywords .close-mark {
+.search-box li .filtered-keywords .close-mark {
   cursor: pointer;
   margin-left: 5px;
   font-size: 16px;
   opacity: 0.7;
 }
-.search-box ul li .filtered-keywords .close-mark:hover {
+.search-box li .filtered-keywords .close-mark:hover {
   opacity: 1.0;
 }
-.search-box ul li.keyword-search-input-box .search-group {
-  width: 400px;
+.search-box li.keyword-search-box {
+  min-width: 200px;
+  width: 100%;
+}
+.search-box li.keyword-search-box .search-group {
   height: 30px;
 }
-.search-box ul li.keyword-search-input-box .search-group span {
+.search-box li.keyword-search-box .search-group span {
   border: none;
   background: none;
   height: inherit;
 }
-.search-box ul li.keyword-search-input-box .search-group input {
+.search-box li.keyword-search-box .search-group input {
   height: inherit;
   padding: 0px;
   border: none;
   box-shadow: none;
 }
-.search-box ul li.keyword-search-input-box .search-group input:focus {
+.search-box li.keyword-search-box .search-group input:focus {
   box-shadow: none;
+}
+.search-box li.keyword-search-box .keyword-select-dropdown {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+.search-box li.keyword-search-box .keyword-select-dropdown .selectable-keyword {
+  cursor: pointer;
+  color: black;
+}
+.search-box li.keyword-search-box .keyword-select-dropdown .selectable-keyword:hover,
+.search-box li.keyword-search-box .keyword-select-dropdown .selectable-keyword:focus {
+  background-color: #337ab7;
+  color: white;
+}
+.search-box li.keyword-search-box .keyword-select-dropdown .keyword-text {
+  padding: 3px 0px 3px 8px;
+  margin-bottom: 0px;
 }
 .demo-template-heading {
   margin-bottom: 80px;
