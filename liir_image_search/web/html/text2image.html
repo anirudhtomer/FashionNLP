@@ -1,10 +1,10 @@
-<div ng-controller="Text2ImageCtrl">
+<div ng-controller="Text2ImageCtrl" ng-click="search.showVocabularyDropdown=false">
     <div class="demo-header-box navbar-inverse">
         <h1 class="text-center demo-template-heading">Text to Image Demo</h1>
     </div>
 
     <div class="row">
-        <ul class="col-sm-offset-2 col-sm-8 col-xs-12 panel panel-default search-box">
+        <ul class="col-sm-offset-2 col-sm-8 col-xs-12 panel panel-default search-box" auto-scroll-on="filterKeywordsMap, emptySearchBoxClicked">
             <li ng-repeat="(keyword, keyword) in filterKeywordsMap">
                 <div class="filtered-keywords text-white">
                     <span class="text-capitalize">{{keyword | UnderscoreFilter}}</span>
@@ -15,13 +15,13 @@
             <li class="keyword-search-box">
                 <div class="input-group search-group">
                     <input ng-model="search.filterText" class="form-control" placeholder="Enter search keywords"
-                           ng-click="search.showVocabularyDropdown=true">
+                           ng-click="searchInputClicked($event)" ng-focus="searchInputClicked($event)">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-search text-primary"></i></span>
                 </div>
 
                 <div ng-show="search.showVocabularyDropdown" class="keyword-select-dropdown" infinite-scroll scroll-reached-bottom-callback="loadMoreVocabulary">
                     <div ng-repeat="keywordNum in vocabCountSequence track by $index"
-                         ng-click="addKeyword(vocabulary[$index]);">
+                         ng-click="addKeyword($event, vocabulary[$index]);">
                         <p ng-class="{'selectable-keyword': isSelectableKeyword(vocabulary[$index]), 'text-muted': true, 'keyword-text': true, 'text-capitalize': true}"> {{vocabulary[$index] | UnderscoreFilter}}</p>
                     </div>
                 </div>

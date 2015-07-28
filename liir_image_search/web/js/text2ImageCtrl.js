@@ -9,17 +9,40 @@ susana.controller(
             $scope.vocabulary = [];
             $scope.filteredImages = [];
 
+            $scope.search = {
+                filterText: "",
+                showVocabularyDropdown: false
+            };
+
+            $scope.searchInputClicked = function($event) {
+                $event.stopPropagation();
+                $scope.search.showVocabularyDropdown = true;
+
+                var count = 0;
+                for (var keyword in $scope.filterKeywordsMap) {
+                    if ($scope.filterKeywordsMap.hasOwnProperty(keyword)) {
+                        count = 1;
+                        break;
+                    }
+                }
+
+                if(count===0){//if the number of filtered keywords is zero
+                    $scope.emptySearchBoxClicked+=1;//increment by 1 so that the auto scroll directive can detect change
+                }
+            };
+
             $scope.removeKeyword = function (keyword) {
                 delete $scope.filterKeywordsMap[keyword];
                 $scope.searchImages();
             };
 
-            $scope.addKeyword = function (keyword) {
+            $scope.addKeyword = function ($event, keyword) {
                 if (angular.isUndefined($scope.filterKeywordsMap[keyword])) {
                     $scope.filterKeywordsMap[keyword] = keyword;
+                    $scope.searchImages();
                 }
 
-                $scope.searchImages();
+                $event.stopPropagation();
             };
 
             $scope.searchImages = function () {
@@ -48,11 +71,6 @@ susana.controller(
 
             $scope.isSelectableKeyword = function (keyword) {
                 return angular.isUndefined($scope.filterKeywordsMap[keyword]);
-            };
-
-            $scope.search = {
-                filterText: "",
-                showVocabularyDropdown: false
             };
 
             $scope.$watch('search.filterText', filterVocabulary);
