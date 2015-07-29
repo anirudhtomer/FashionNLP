@@ -18,7 +18,7 @@ app.register_blueprint(search_service)
 
 @app.route("/json/<string:file_name>", methods=['POST'])
 def request_json(file_name):
-   return jsonify(**json.load(open(app.static_folder + "/json/" + file_name + ".json", "r")))
+   return jsonify(**json.load(open("json/" + file_name + ".json", "r")))
 
 if __name__ == "__main__":
     app.run(port=app_config['server_port'], debug=False, use_reloader=False, use_evalex=False)

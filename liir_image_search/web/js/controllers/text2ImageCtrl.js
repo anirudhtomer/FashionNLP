@@ -45,6 +45,17 @@ susana.controller(
                 $event.stopPropagation();
             };
 
+            $scope.enterPressed = function($event){
+                if($event.which===13 && angular.isDefined($scope.vocabulary[0])){
+                    for(var i=0;i<$scope.vocabulary.length;i++) {
+                        if($scope.isSelectableKeyword($scope.vocabulary[i])){
+                            $scope.addKeyword($event, $scope.vocabulary[i]);
+                            break;
+                        }
+                    }
+                }
+            };
+
             $scope.searchImages = function () {
                 var filterKeywords = [];
 
@@ -90,7 +101,6 @@ susana.controller(
             };
 
             $scope.$on("$destroy", function () {
-                console.log("destroy called");
                 DataService.storeData('filterKeywordsMap', $scope.filterKeywordsMap);
             });
 

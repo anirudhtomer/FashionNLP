@@ -1,10 +1,3 @@
-susana.filter(
-    'UnderscoreFilter', [function(){
-        return function(input){
-            return input.replace(/_/g, " ");
-        };
-    }]);
-
 susana.factory(
     'UtilService',
     [function(){

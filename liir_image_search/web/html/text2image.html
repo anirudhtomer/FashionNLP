@@ -15,7 +15,7 @@
             <li class="keyword-search-box">
                 <div class="input-group search-group">
                     <input ng-model="search.filterText" class="form-control" placeholder="Enter search keywords"
-                           ng-click="searchInputClicked($event)" ng-focus="searchInputClicked($event)">
+                           ng-click="searchInputClicked($event)" ng-keypress="enterPressed($event)" ng-focus="searchInputClicked($event)">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-search text-primary"></i></span>
                 </div>
 

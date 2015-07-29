@@ -4,6 +4,6 @@
   "server_port": 8076,
   "sqlite_uri": "sqlite:///F:/work/liir.susana/NLPImageSearch/liir_image_search/database.db",
   "static_folder": "web",
-  "vocabulary_file": "vocabulary/pos.words",
+  "vocabulary_file": "vocabulary/zappos.words",
   "text2image_count": 15
 }
