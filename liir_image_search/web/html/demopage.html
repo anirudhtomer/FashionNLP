@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-md-4" ng-repeat="demotype in demotypeList">
+        <h2>{{demotype.title}}</h2>
+
+        <p class="text-justify">{{demotype.description}}</p>
+        <button ng-click="showDemo(demotype.templateUrl)"
+                ng-class="{'btn': true, 'btn-primary': demoTypeUrl != demotype.templateUrl, 'active': demoTypeUrl == demotype.templateUrl, 'btn-success': demoTypeUrl == demotype.templateUrl}">
+            View Results <span
+                ng-class="{'glyphicon': true, 'glyphicon-chevron-right':demoTypeUrl != demotype.templateUrl, 'glyphicon-chevron-down':demoTypeUrl == demotype.templateUrl }"
+                aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+<hr>
+
+<div ng-include="demoTypeUrl"></div>

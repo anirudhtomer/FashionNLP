@@ -3,13 +3,18 @@
         <h1 class="text-center demo-template-heading">Image to Text Demo</h1>
     </div>
 
-    <div class="row image-row" ng-repeat="i in rowIndexArray">
-        <div class="col-md-4 text-center image-item" ng-repeat="j in [0,1,2]">
-            <img class="image2textimage" ng-src="{{items[i*3 + j].imageUrl}}"/>
+    <div class="row" keyword-search-box search-box-id="image2txtsearchbox" content-change-callback="searchImages">
+    </div>
 
-            <h3 class="text-center image-title">Words Predicted</h3>
+    <div class="row images-container" infinite-scroll scroll-reached-bottom-callback="loadMoreImages">
+        <div class="row image-row" ng-repeat="imgrow in imgRowCountSequence track by $index">
+            <div class="col-sm-4 text-center image-item" ng-repeat="imageNum in [0,1,2]" ng-hide="($parent.$index*3 + imageNum) >= images.length">
+                <img class="image2textimage" ng-src="{{images[$parent.$index*3 + imageNum].imageUrl}}"/>
 
-            <p class="text-capitalize text-muted text-justify">{{items[i*3 + j].wordsPredicted}}</p>
+                <h3 class="text-center image-title">Words Predicted</h3>
+
+                <p class="text-capitalize text-muted text-justify">{{images[$parent.$index*3 + imageNum].wordsPredicted}}</p>
+            </div>
         </div>
     </div>
 </div>

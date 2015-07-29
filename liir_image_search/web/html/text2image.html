@@ -1,36 +1,13 @@
-<div ng-controller="Text2ImageCtrl" ng-click="search.showVocabularyDropdown=false">
+<div ng-controller="Text2ImageCtrl">
     <div class="demo-header-box navbar-inverse">
         <h1 class="text-center demo-template-heading">Text to Image Demo</h1>
     </div>
 
-    <div class="row">
-        <ul class="col-sm-offset-2 col-sm-8 col-xs-12 panel panel-default search-box" auto-scroll-on="filterKeywordsMap, emptySearchBoxClicked">
-            <li ng-repeat="(keyword, keyword) in filterKeywordsMap">
-                <div class="filtered-keywords text-white">
-                    <span class="text-capitalize">{{keyword | UnderscoreFilter}}</span>
-                    <span class="text-right close-mark" ng-click="removeKeyword(keyword)" title="Remove">&times;</span>
-                </div>
-            </li>
-
-            <li class="keyword-search-box">
-                <div class="input-group search-group">
-                    <input ng-model="search.filterText" class="form-control" placeholder="Enter search keywords"
-                           ng-click="searchInputClicked($event)" ng-keypress="enterPressed($event)" ng-focus="searchInputClicked($event)">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-search text-primary"></i></span>
-                </div>
-
-                <div ng-show="search.showVocabularyDropdown" class="keyword-select-dropdown" infinite-scroll scroll-reached-bottom-callback="loadMoreVocabulary">
-                    <div ng-repeat="keywordNum in vocabCountSequence track by $index"
-                         ng-click="addKeyword($event, vocabulary[$index]);">
-                        <p ng-class="{'selectable-keyword': isSelectableKeyword(vocabulary[$index]), 'text-muted': true, 'keyword-text': true, 'text-capitalize': true}"> {{vocabulary[$index] | UnderscoreFilter}}</p>
-                    </div>
-                </div>
-            </li>
-        </ul>
+    <div class="row" keyword-search-box search-box-id="txt2imagesearchbox" content-change-callback="searchImages">
     </div>
 
     <div class="row image-row" ng-repeat="imageRowNum in imageRowSequence track by $index">
-        <div class="col-sm-3 text-center" ng-repeat="imageNum in [0,1,2,3]" ng-hide="undefinedFilter($parent.$index, imageNum)">
+        <div class="col-sm-3 text-center" ng-repeat="imageNum in [0,1,2,3]" ng-hide="($parent.$index*4 + imageNum) >= filteredImages.length">
             <img class="text2image-img" ng-src="{{filteredImages[$parent.$index*4 + imageNum].url}}"/>
             <p class="text-muted lead"> {{'Score:' + filteredImages[$parent.$index*4 + imageNum].score}}</p>
         </div>
