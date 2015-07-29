@@ -17,3 +17,4 @@ susana.config(['$routeProvider',
 
 //Constants
 const SEARCH_BOX_CALLBACK_MAP = 'searchboxCallbackMap';
+const IMAGE_2_TEXT_IMAGES = "image2TextImages";

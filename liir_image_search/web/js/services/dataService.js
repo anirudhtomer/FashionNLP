@@ -1,7 +1,7 @@
 susana.factory(
     'DataService',
-    ['$http', 'TrieService',
-        function ($http, TrieService) {
+    ['$http', 'TrieService','HashSetService',
+        function ($http, TrieService, HashSetService) {
 
             var registeredCallbacks = [];
             var vocabLoaded = false;
@@ -9,7 +9,11 @@ susana.factory(
             var storage = {};
 
             var vocabTrie = TrieService.createNewTrie();
+            var imageIndexByKeywordMap = {};
 
+            /******************************************
+             * Creating a Trie of Vocabulary
+             ***************************************/
             $http({method: 'POST', url: 'metadata/getvocab'}).success(function (data) {
                 vocabulary = data.vocab;
                 vocabLoaded = true;
@@ -42,6 +46,33 @@ susana.factory(
                 registeredCallbacks.length = 0;
             });
 
+            /******************************************
+             * Creating a Filter for Images
+             ******************************************/
+            $http({
+                method: 'POST',
+                url: 'json/img2txt'
+            }).success(function (data) {
+
+                var images = [];
+                for (var i = 0; i < data.items.length; i++) {
+                    images[i] = {};
+                    images[i].imageUrl = data.items[i].folder.split("data/")[1] + data.items[i].img_filename;
+                    images[i].wordsPredictedStr = data.items[i].words_predicted.replace(/ /g, ", ").replace(/_/g, " ");
+                    images[i].wordsPredictedArray = images[i].wordsPredictedStr.split(", ");
+
+                    for(var j=0;j<images[i].wordsPredictedArray.length;j++) {
+                        word = images[i].wordsPredictedArray[j];
+                        if (angular.isUndefined(imageIndexByKeywordMap[word])) {
+                            imageIndexByKeywordMap[word] = [];
+                        }
+                        imageIndexByKeywordMap[word].push(i);
+                    }
+                }
+
+                storeData(IMAGE_2_TEXT_IMAGES, images);
+            });
+
             function getVocabulary(callback) {
                 if (angular.isFunction(callback)) {
                     if (vocabLoaded === true) {
@@ -64,9 +95,37 @@ susana.factory(
                 return storage[key];
             }
 
+            function searchImg2TxtImages(filterKeywords){
+                var totalFilterKeywords = filterKeywords.length;
+                var imageIndexMap = {};
+                for(var i=0;i<totalFilterKeywords;i++){
+                    var imageIndexArray = imageIndexByKeywordMap[filterKeywords[i]];
+                    for(j=0;j<imageIndexArray.length;j++){
+                        imageIndex = imageIndexArray[j];
+                        if(angular.isUndefined(imageIndexMap[imageIndex])){
+                            imageIndexMap[imageIndex] = 0;
+                        }
+                        imageIndexMap[imageIndex]++;
+                    }
+                }
+
+                var images = [];
+                var k=0;
+                for(var index in imageIndexMap){
+                    if (imageIndexMap.hasOwnProperty(index)) {
+                        if(imageIndexMap[index]===totalFilterKeywords) {
+                            images[k++] = storage[IMAGE_2_TEXT_IMAGES][index];
+                        }
+                    }
+                }
+
+                return images;
+            }
+
             return {
                 'getVocabulary': getVocabulary,
                 'getVocabTrie': getVocabTrie,
+                'searchImg2TxtImages': searchImg2TxtImages,
                 'storeData': storeData,
                 'retrieveData': retrieveData
             };

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 from liir_image_search.server.static_page_service import static_page_service
 from liir_image_search.server.metadata_service import metadata_service
 from liir_image_search.server.search_service import search_service

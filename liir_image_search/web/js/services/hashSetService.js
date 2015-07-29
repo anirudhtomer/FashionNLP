@@ -20,7 +20,7 @@ susana.factory(
 
 			this.size = function(){
 				return this.length;
-			}
+			};
 
 			this.containsKey = function(key){
 				return angular.isDefined(this.keys[key]);
