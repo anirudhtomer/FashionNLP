@@ -6,7 +6,7 @@ susana.controller(
             var MIN_IMAGES_TO_SHOW = 12;
             var LOAD_MORE_IMAGES_COUNT = 9;
 
-            var IMAGES_PER_ROW = 3;
+            var IMAGES_PER_ROW = 2;
             var LOADED_ATLEAST_ONCE = "LOADED_ATLEAST_ONCE";
 
             $scope.images = [];

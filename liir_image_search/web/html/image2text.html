@@ -1,6 +1,6 @@
 <div ng-controller="Image2TextCtrl">
-    <div class="demo-header-box navbar-inverse">
-        <h1 class="text-center demo-template-heading">Image to Text Demo</h1>
+    <div class="demo-header-box">
+        <h1 class="text-center text-muted demo-template-heading">Image to Text Demo</h1>
     </div>
 
     <div class="row" keyword-search-box search-box-id="image2txtsearchbox" content-change-callback="searchImages">
@@ -8,14 +8,32 @@
 
     <div class="row images-container" infinite-scroll scroll-reached-bottom-callback="loadMoreImages">
         <div class="row image-row" ng-repeat="imgrow in imgRowCountSequence track by $index">
-            <div class="col-sm-4 text-center image-item" ng-repeat="imageNum in [0,1,2]" ng-hide="($parent.$index*3 + imageNum) >= images.length">
-                <img class="image2textimage" ng-src="{{images[$parent.$index*3 + imageNum].imageUrl}}"/>
+            <div class="col-sm-6 text-center image-item" ng-repeat="imageNum in [0,1]"
+                 ng-hide="($parent.$index*2 + imageNum) >= images.length">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <img class="image2textimage" ng-src="{{images[$parent.$index*2 + imageNum].imageUrl}}"/>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>Original Words</h4>
+                        <p class="text-capitalize text-muted">{{images[$parent.$index*2 + imageNum].wordsTrueProjection}}</p>
+                        <br/>
+                        <h4>Words Predicted</h4>
+                        <div ng-repeat="predictedWord in images[$parent.$index*2 + imageNum].wordsPredicted" class="progress">
+                            <div ng-class="{'progress-bar': true, 'progress-bar-success': predictedWord.score >= 90, 'progress-bar-info': predictedWord.score >= 80 && predictedWord.score < 90, 'progress-bar-warning': predictedWord.score >= 70 && predictedWord.score < 80, 'progress-bar-danger': predictedWord.score >= 60 && predictedWord.score < 70 }"
+                                 role="progressbar" aria-valuenow="{{predictedWord.score}}" aria-valuemin="0" aria-valuemax="100"
+                                 ng-style="{'width': (predictedWord.score +'%')}">
+                               {{predictedWord.word}}
+                            </div>
+                        </div>
 
-                <h3 class="text-center image-title">Words Predicted</h3>
+                    </div>
+                    <!--<h3 class="text-center image-title">Words Predicted</h3>
 
-                <p class="text-capitalize text-muted text-justify">
-                    {{images[$parent.$index*3 + imageNum].wordsPredictedStr}}
-                </p>
+                    <p class="text-capitalize text-muted text-justify">
+                        {{images[$parent.$index*2 + imageNum].wordsPredictedStr}}
+                    </p>-->
+                </div>
             </div>
         </div>
     </div>

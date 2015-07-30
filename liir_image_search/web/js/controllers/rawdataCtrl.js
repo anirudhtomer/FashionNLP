@@ -11,7 +11,7 @@ susana.controller(
             }
 
             $scope.items = [];
-            $http({method: 'POST', url: 'json/rawdata.json'}).success(function(data) {
+            $http({method: 'POST', url: 'json/rawdata'}).success(function(data) {
                 for(var i=0; i<$scope.totalImages; i++){
                     $scope.items[i] = {
                         imageUrl: "images/" + data.dresses[i].folder + "/" + data.dresses[i].asin + ".jpg",

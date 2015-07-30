@@ -104,9 +104,9 @@
   padding: 3px 0px 3px 8px;
   margin-bottom: 0px;
 }
-.demo-template-heading {
-  margin-bottom: 80px;
+#main-header {
   color: white;
+  background-color: #337ab7;
 }
 .images-container {
   max-height: 800px;
@@ -129,6 +129,21 @@
   border-bottom-right-radius: 50%;
   padding: 10px;
   margin-bottom: 100px;
+}
+.demo-header-box .demo-template-heading {
+  margin-bottom: 80px;
+}
+.demo-summary-box .demo-summary-title {
+  opacity: 0.8;
+}
+.demo-summary-box .demo-summary-description {
+  opacity: 0.9;
+}
+.demo-summary-box:hover .demo-summary-title {
+  opacity: 1.0;
+}
+.demo-summary-box:hover .demo-summary-description {
+  opacity: 1.0;
 }
 .image-row {
   margin-bottom: 120px;

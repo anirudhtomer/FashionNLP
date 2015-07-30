@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-md-4" ng-repeat="demotype in demotypeList">
-        <h2>{{demotype.title}}</h2>
+    <div ng-repeat="demotype in demotypeList" ng-class="{'col-md-4': true, 'demo-summary-box': demoTypeUrl!=demotype.templateUrl}">
+        <h2 ng-class="{'demo-summary-title': demoTypeUrl!=demotype.templateUrl, 'text-success': demoTypeUrl==demotype.templateUrl}">{{demotype.title}}</h2>
 
-        <p class="text-justify">{{demotype.description}}</p>
+        <p ng-class="{'text-justify':true, 'demo-summary-description': demoTypeUrl!=demotype.templateUrl, 'text-success': demoTypeUrl==demotype.templateUrl}">{{demotype.description}}</p>
         <button ng-click="showDemo(demotype.templateUrl)"
                 ng-class="{'btn': true, 'btn-primary': demoTypeUrl != demotype.templateUrl, 'active': demoTypeUrl == demotype.templateUrl, 'btn-success': demoTypeUrl == demotype.templateUrl}">
             View Results <span

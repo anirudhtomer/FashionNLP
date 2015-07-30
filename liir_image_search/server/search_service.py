@@ -27,6 +27,25 @@ def get_images():
 
 logger.info("loaded: " + __name__)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 '''
  Following stuff to be removed after real binding with engine
 '''

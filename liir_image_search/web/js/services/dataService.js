@@ -60,6 +60,13 @@ susana.factory(
                     images[i].imageUrl = data.items[i].folder.split("data/")[1] + data.items[i].img_filename;
                     images[i].wordsPredictedStr = data.items[i].words_predicted.replace(/ /g, ", ").replace(/_/g, " ");
                     images[i].wordsPredictedArray = images[i].wordsPredictedStr.split(", ");
+                    //images[i].wordsPredictedArray.length = 4;
+                    images[i].wordsPredicted = [];
+                    //Simulation: Tobe removed later
+                    for(k=0;k<images[i].wordsPredictedArray.length;k++){
+                        images[i].wordsPredicted[k] = {word: images[i].wordsPredictedArray[k], score: (95-5*k + Math.floor(Math.random() * 10))};
+                    }
+                    images[i].wordsTrueProjection = data.items[i].words_true_proj.replace(/ /g, ", ");
 
                     for(var j=0;j<images[i].wordsPredictedArray.length;j++) {
                         word = images[i].wordsPredictedArray[j];
