@@ -20,7 +20,7 @@
                         <br/>
                         <h4>Words Predicted</h4>
                         <div ng-repeat="predictedWord in images[$parent.$index*2 + imageNum].wordsPredicted" class="progress">
-                            <div ng-class="{'progress-bar': true, 'progress-bar-success': predictedWord.score >= 90, 'progress-bar-info': predictedWord.score >= 80 && predictedWord.score < 90, 'progress-bar-warning': predictedWord.score >= 70 && predictedWord.score < 80, 'progress-bar-danger': predictedWord.score >= 60 && predictedWord.score < 70 }"
+                            <div ng-class="{'text-capitalize': true, 'progress-bar': true, 'progress-bar-success': predictedWord.score >= 90, 'progress-bar-info': predictedWord.score >= 80 && predictedWord.score < 90, 'progress-bar-warning': predictedWord.score >= 70 && predictedWord.score < 80, 'progress-bar-danger': predictedWord.score >= 60 && predictedWord.score < 70 }"
                                  role="progressbar" aria-valuenow="{{predictedWord.score}}" aria-valuemin="0" aria-valuemax="100"
                                  ng-style="{'width': (predictedWord.score +'%')}">
                                {{predictedWord.word}}

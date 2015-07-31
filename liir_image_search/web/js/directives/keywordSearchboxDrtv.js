@@ -68,7 +68,7 @@ susana.directive('keywordSearchBox',
                         $event.stopPropagation();
                     };
 
-                    $scope.enterPressed = function ($event) {
+                    $scope.checkEnterPressed = function ($event) {
                         if ($event.which === 13 && angular.isDefined($scope.vocabulary[0])) {
                             for (var i = 0; i < $scope.vocabulary.length; i++) {
                                 if ($scope.isSelectableKeyword($scope.vocabulary[i])) {

@@ -13,6 +13,8 @@ TEXT2IMAGE_COUNT = app_config['text2image_count']
 
 search_service = Blueprint("search_service", __name__)
 
+with open("json/rawdata_orig.json", "r") as rawdata_file:
+    rawdata = json.load(rawdata_file)['dresses']
 
 @search_service.route("/search/text2image", methods=['POST'])
 def get_images():
@@ -25,21 +27,18 @@ def get_images():
 
     return jsonify(images=response)
 
+@search_service.route("/search/rawimages", methods=['POST'])
+def get_rawimages():
+    request_obj = request.get_json()
+    requestedImages = request_obj['imageIdList']
+    logger.debug(requestedImages)
+    response = []
+    for i in requestedImages:
+        response.append(rawdata[i])
+
+    return jsonify(images=response)
+
 logger.info("loaded: " + __name__)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -11,8 +11,10 @@ susana.directive('infiniteScroll',
 
                 element.scroll(function(){
                     if(element[0].scrollHeight === (element.scrollTop() +  element.height() + padding)){//20px padding
-                        scope.scrollReachedBottomCallback();
-                        UtilService.scopeApply(scope);
+                        if(angular.isFunction(scope.scrollReachedBottomCallback)) {
+                            scope.scrollReachedBottomCallback();
+                            UtilService.scopeApply(scope);
+                        }
                     }
                 });
             }
