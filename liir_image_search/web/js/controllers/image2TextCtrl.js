@@ -11,6 +11,8 @@ susana.controller(
 
             $scope.images = [];
 
+            $scope.demoModeActive = DataService.isDemoModeActive();
+
             $scope.loadMoreImages = function () {
                 if ($scope.imgRowCountSequence.length * IMAGES_PER_ROW < $scope.images.length) {
                     var remainingImages = $scope.images.length - $scope.imgRowCountSequence.length * IMAGES_PER_ROW;
@@ -31,6 +33,24 @@ susana.controller(
             if (angular.isUndefined(DataService.retrieveData(LOADED_ATLEAST_ONCE))) {
                 $scope.searchImages([]);
                 DataService.storeData(LOADED_ATLEAST_ONCE, true);
+            }
+
+            $scope.incrementPaginationNumber = function (number) {
+                if (number > 3) {
+                    return 4;
+                }
+                else {
+                    return number + 1;
+                }
+            };
+
+            $scope.decrementPaginationNumber = function (number) {
+                if (number <2 ) {
+                    return 1;
+                }
+                else {
+                    return number - 1;
+                }
             }
         }
     ]

@@ -11,6 +11,8 @@ susana.controller(
             var imageIDRegex = new RegExp(/^\d+$/);
             $scope.maxImageId = 53688;
 
+            $scope.demoModeActive = DataService.isDemoModeActive();
+
             $scope.search = {
                 filterText: ""
             };

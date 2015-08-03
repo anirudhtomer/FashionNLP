@@ -53,6 +53,16 @@
 #rawDataImagesContainer {
   margin-top: 100px;
 }
+#actionBtnRow {
+  margin-top: 10px;
+}
+#actionBtnRow .actionbtnColForInput {
+  padding-right: 0px;
+}
+#actionBtnRow .actionbtnColForBtn {
+  padding-left: 0px;
+  padding-right: 0px;
+}
 .search-box {
   margin-bottom: 100px;
   padding-right: 0px;
@@ -122,13 +132,30 @@
   color: white;
   background-color: #337ab7;
 }
+#image2textActionPanel {
+  margin-bottom: 100px;
+}
+#image2textActionPanelTitle {
+  margin-bottom: 0px;
+}
+#image2textActionPanelTopHr {
+  margin-top: 0px;
+}
 .images-container {
   max-height: 800px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
+.images-container .checkbox {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+#image2textview .pagination {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 .image2textimage {
-  height: 300px;
+  height: 330px;
   margin-bottom: 20px;
 }
 .text2image-img {
@@ -165,6 +192,10 @@
 .image-item {
   padding-left: 50px;
   padding-right: 50px;
+}
+.image-item .checkbox-hr {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 .image-item .image-title {
   margin-bottom: 0px;

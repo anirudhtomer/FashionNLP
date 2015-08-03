@@ -7,9 +7,16 @@ susana.factory(
             var vocabLoaded = false;
             var vocabulary = [];
             var storage = {};
+            var demoModeActive = false;
 
             var vocabTrie = TrieService.createNewTrie();
             var imageIndexByKeywordMap = {};
+
+            $http({method: 'POST', url: 'metadata/isdemomodeactive'}).success(function (data) {
+                if(angular.isDefined(data.demoModeActive)){
+                    demoModeActive = data.demoModeActive;
+                }
+            });
 
             /******************************************
              * Creating a Trie of Vocabulary
@@ -134,7 +141,10 @@ susana.factory(
                 'getVocabTrie': getVocabTrie,
                 'searchImg2TxtImages': searchImg2TxtImages,
                 'storeData': storeData,
-                'retrieveData': retrieveData
+                'retrieveData': retrieveData,
+                'isDemoModeActive': function(){
+                    return demoModeActive;
+                }
             };
         }]
 );

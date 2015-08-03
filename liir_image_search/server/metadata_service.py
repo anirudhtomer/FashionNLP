@@ -17,4 +17,8 @@ metadata_service = Blueprint("metadata_service", __name__)
 def get_vocab():
     return jsonify(vocab=vocab_words)
 
+@metadata_service.route("/metadata/isdemomodeactive", methods=['POST'])
+def is_demo_mode_active():
+    return jsonify(demoModeActive=app_config['demo_mode_active'])
+
 logger.info("loaded: " + __name__)
