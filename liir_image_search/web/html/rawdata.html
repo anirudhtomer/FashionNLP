@@ -1,8 +1,4 @@
 <div ng-controller="RawDataCtrl">
-    <div class="demo-header-box">
-        <h1 class="text-center text-muted demo-template-heading">Raw Data</h1>
-    </div>
-
     <div class="row" ng-show="demoModeActive==false">
         <ul id="rawDataIdSearchbox" ng-class="{'col-sm-offset-2': true, 'col-sm-8': true, 'col-xs-12': true, 'panel': true, 'panel-default': true, 'search-box': true,
                 'border-brand-success': isValidImageId(search.filterText), 'border-brand-danger': !isValidImageId(search.filterText) && search.filterText.length > 0,

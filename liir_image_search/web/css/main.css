@@ -193,6 +193,9 @@
 .demo-summary-box:hover .demo-summary-description {
   opacity: 1.0;
 }
+#demoPanel {
+  margin-top: 50px;
+}
 .image-row {
   margin-bottom: 120px;
 }
