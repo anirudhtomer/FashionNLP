@@ -53,16 +53,6 @@
 #rawDataImagesContainer {
   margin-top: 100px;
 }
-#actionBtnRow {
-  margin-top: 10px;
-}
-#actionBtnRow .actionbtnColForInput {
-  padding-right: 0px;
-}
-#actionBtnRow .actionbtnColForBtn {
-  padding-left: 0px;
-  padding-right: 0px;
-}
 .search-box {
   margin-bottom: 100px;
   padding-right: 0px;
@@ -132,8 +122,22 @@
   color: white;
   background-color: #337ab7;
 }
-#image2textActionPanel {
-  margin-bottom: 100px;
+#image2textActionPanel #actionBtnRow {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+#image2textActionPanel #actionBtnRow .actionbtnColForInput {
+  padding-right: 0px;
+}
+#image2textActionPanel #actionBtnRow .actionbtnColForBtn {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#image2textActionPanel #feedbackThanksMsg {
+  opacity: 0;
+  -webkit-transition: opacity 2s;
+  /* Safari */
+  transition: opacity 2s;
 }
 #image2textActionPanelTitle {
   margin-bottom: 0px;

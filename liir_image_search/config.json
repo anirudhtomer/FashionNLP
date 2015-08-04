@@ -1,8 +1,11 @@
 {
-  "__COMMENT__": "DO NOT CHANGE NAME OF PROPERTIES; all paths should be relative to the root folder which is liir_image_search",
+  "__COMMENT__": "DO NOT CHANGE NAME OF PROPERTIES",
+  "__COMMENT2__": "Paths for 'static_folder' and 'vocabulary_file' should be relative to the root folder which is liir_image_search",
+  "__COMMENT3__": "Path for 'sqlite_db_file' should be absolute Operating system file path",
 
   "server_port": 8076,
-  "sqlite_uri": "sqlite:///F:/work/liir.susana/NLPImageSearch/liir_image_search/database.db",
+  "sqlite_db_file": "F:/work/liir.susana/NLPImageSearch/liir_image_search/database.sqlite",
+  "feeback_table_name": "feedback",
   "static_folder": "web",
   "vocabulary_file": "vocabulary/zappos.words",
   "text2image_count": 15,

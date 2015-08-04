@@ -63,7 +63,7 @@ susana.factory(
 
                 var images = [];
                 for (var i = 0; i < data.items.length; i++) {
-                    images[i] = {};
+                    images[i] = {imgid: data.items[i].imgid};
                     images[i].imageUrl = data.items[i].folder.split("data/")[1] + data.items[i].img_filename;
                     images[i].wordsPredictedStr = data.items[i].words_predicted.replace(/ /g, ", ").replace(/_/g, " ");
                     images[i].wordsPredictedArray = images[i].wordsPredictedStr.split(", ");

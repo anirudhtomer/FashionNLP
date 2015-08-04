@@ -6,20 +6,23 @@
     <div class="row" keyword-search-box search-box-id="image2txtsearchbox" content-change-callback="searchImages">
     </div>
 
-    <p id="image2textActionPanelTitle" class="text-right text-muted lead">Actions for selected images</p>
-    <hr id="image2textActionPanelTopHr">
-    <div id="image2textActionPanel" class="text-right">
+    <p id="image2textActionPanelTitle" class="text-right text-muted lead" ng-show="demoModeActive==false">Actions for selected images</p>
+    <hr id="image2textActionPanelTopHr" ng-show="demoModeActive==false">
+    <div id="image2textActionPanel" class="text-right" ng-show="demoModeActive==false">
         <div class="row">
-            <button class="btn-primary btn btn-sm" ng-click="">Report Misclassified</button>
+            <button class="btn-primary btn btn-sm" ng-click="reportMisclassified()">Report Misclassified</button>
         </div>
         <div id="actionBtnRow" class="row">
             <div class="col-md-offset-5 col-md-5 col-sm-7 col-sm-offset-3 col-xs-10 col-lg-6 col-lg-offset-5 actionbtnColForInput">
-                <input class="form-control input-sm" placeholder="Enter tags for selected images"
-                       ng-keypress="checkEnterPressed($event)" ng-focus="searchInputClicked($event)">
+                <input class="form-control input-sm" ng-model="tags" placeholder="Enter comma separated tags for selected images">
             </div>
             <div class="col-xs-2 col-lg-1 actionbtnColForBtn text-right">
-                <button class="btn-primary btn-sm btn">Submit Tags</button>
+                <button class="btn-primary btn-sm btn" ng-click="submitTags()">Submit Tags</button>
             </div>
+        </div>
+
+        <div class="row">
+            <p id="feedbackThanksMsg" class="text-info lead" ng-style="feedbackThanksStyle">Thank you for the feedback. :) </p>
         </div>
     </div>
 
@@ -31,11 +34,12 @@
                     <div class="col-lg-12">
                         <div class="checkbox text-left" ng-show="demoModeActive==false">
                             <label class="text-primary">
-                                <input type="checkbox" id="checkboxWarning" value="option1">
+                                <input type="checkbox"
+                                       ng-model="checkboxStates[images[$parent.$index*2 + imageNum].imgid]">
                                 Select Image
                             </label>
                         </div>
-                        <hr class="checkbox-hr">
+                        <hr class="checkbox-hr" ng-show="demoModeActive==false">
                     </div>
                     <div class="row">
                         <div class="col-sm-6">

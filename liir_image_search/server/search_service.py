@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-import json, logging, logging.config
+import json,logging, logging.config
 import random
 
 with open("logging.json", "r") as logging_file:
