@@ -38,6 +38,31 @@
   /* Safari */
   -ms-box-sizing: border-box;
 }
+.flash-message {
+  opacity: 0.0;
+  -webkit-transition: opacity 2s;
+  /* Safari */
+  transition: opacity 2s;
+}
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
 .border-brand-primary {
   border-color: #1e9bb7;
 }
@@ -125,6 +150,9 @@
 #demoSelectorPanel .text-warning {
   color: #B57B18;
 }
+#demoSelectorPanel .demotype-description {
+  font-size: 16px;
+}
 #image2textActionPanel #actionBtnRow {
   margin-top: 10px;
   margin-bottom: 20px;
@@ -135,12 +163,6 @@
 #image2textActionPanel #actionBtnRow .actionbtnColForBtn {
   padding-left: 0px;
   padding-right: 0px;
-}
-#image2textActionPanel #feedbackThanksMsg {
-  opacity: 0;
-  -webkit-transition: opacity 2s;
-  /* Safari */
-  transition: opacity 2s;
 }
 #image2textActionPanelTitle {
   margin-bottom: 0px;

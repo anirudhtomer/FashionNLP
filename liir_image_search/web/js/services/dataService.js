@@ -8,6 +8,7 @@ susana.factory(
             var vocabulary = [];
             var storage = {};
             var demoModeActive = false;
+            var maxFileUploadSize = 100000;
 
             var vocabTrie = TrieService.createNewTrie();
             var imageIndexByKeywordMap = {};
@@ -17,6 +18,13 @@ susana.factory(
                     demoModeActive = data.demoModeActive;
                 }
             });
+
+            $http({method: 'POST', url: 'metadata/getmaxfileuploadsize'}).success(function (data) {
+                if(angular.isDefined(data.maxFileUploadSize)){
+                    maxFileUploadSize = data.maxFileUploadSize;
+                }
+            });
+
 
             /******************************************
              * Creating a Trie of Vocabulary
@@ -144,6 +152,9 @@ susana.factory(
                 'retrieveData': retrieveData,
                 'isDemoModeActive': function(){
                     return demoModeActive;
+                },
+                'getMaxFileUploadSize': function(){
+                    return maxFileUploadSize;
                 }
             };
         }]

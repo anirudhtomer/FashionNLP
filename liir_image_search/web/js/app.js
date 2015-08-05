@@ -1,4 +1,4 @@
-var susana = angular.module('susana', ['ngRoute', 'ngCookies']);
+var susana = angular.module('susana', ['ngRoute', 'ngCookies', 'angularFileUpload']);
 
 susana.config(['$routeProvider',
     function ($routeProvider) {

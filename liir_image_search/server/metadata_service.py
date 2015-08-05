@@ -19,6 +19,16 @@ def get_vocab():
 
 @metadata_service.route("/metadata/isdemomodeactive", methods=['POST'])
 def is_demo_mode_active():
-    return jsonify(demoModeActive=app_config['demo_mode_active'])
+    if 'demo_mode_active' in app_config:
+        return jsonify(demoModeActive=app_config['demo_mode_active'])
+    else:
+        return jsonify(demoModeActive=False)
+
+@metadata_service.route("/metadata/getmaxfileuploadsize", methods=['POST'])
+def get_max_file_upload_size():
+    if 'max_file_upload_size' in app_config:
+        return jsonify(maxFileUploadSize=app_config['max_file_upload_size'])
+    else:
+        return jsonify(maxFileUploadSize=100000)
 
 logger.info("loaded: " + __name__)

@@ -1,0 +1,28 @@
+<div ng-controller="FindSimilarCtrl">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 well" nv-file-drop
+             uploader="uploader">
+            <h3 class="text-center text-muted">
+                Drag and Drop an Image
+            </h3>
+
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+                    <a href="" class="thumbnail" ng-show="activeImage.anyActive">
+                        <img ng-src="{{activeImage.url}}" alt="{{activeImage.title}}">
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <span class="btn btn-sm btn-primary btn-file">Upload Image &nbsp; <span
+                        class="glyphicon glyphicon-open"></span><input id="fileu" type="file" class="filestyle"
+                                                                       nv-file-select uploader="uploader"/></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <p class="text-danger lead flash-message" flash-message="flashError">{{errorMessage}}</p>
+    </div>
+</div>

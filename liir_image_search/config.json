@@ -1,13 +1,21 @@
 {
   "__COMMENT__": "DO NOT CHANGE NAME OF PROPERTIES",
-  "__COMMENT2__": "Paths for 'static_folder' and 'vocabulary_file' should be relative to the root folder which is liir_image_search",
-  "__COMMENT3__": "Path for 'sqlite_db_file' should be absolute Operating system file path",
 
-  "server_port": 8076,
-  "sqlite_db_file": "F:/work/liir.susana/NLPImageSearch/liir_image_search/database.sqlite",
-  "feeback_table_name": "feedback",
+  "__COMMENT2__": "Paths for 'static_folder', and 'vocabulary_file' should be relative to the root folder which is liir_image_search",
   "static_folder": "web",
   "vocabulary_file": "vocabulary/zappos.words",
+
+  "__COMMENT3__": "Path for 'sqlite_db_file' should be absolute Operating system file path",
+  "sqlite_db_file": "F:/work/liir.susana/NLPImageSearch/liir_image_search/database.sqlite",
+
+  "__COMMENT4__": "'max_file_upload_size' is in bytes",
+  "max_file_upload_size": 100000,
+
+  "__COMMENT5__": "DO NOT CHANGE THE PROPERTY 'upload_folder'. IT IS FOR INTERNAL USE",
+  "upload_folder": "web/uploadedImages",
+
+  "server_port": 8076,
+  "feedback_table_name": "feedback",
   "text2image_count": 15,
   "demo_mode_active": false
 }

@@ -5,7 +5,7 @@ susana.controller(
             $scope.demotypeList = [
                 {
                     title: "Raw Data",
-                    description: "Here we show the original image and text pairs.",
+                    description: "We show the original image and text pairs here. We parse the description of images to get meaningful projection of words.",
                     templateUrl: "html/rawdata.html"
                 },
                 {
@@ -15,8 +15,13 @@ susana.controller(
                 },
                 {
                     title: "Image to Text",
-                    description: "Given a query image we generate words which best explain the image. The words per image are sorted by their likelihood of explaining the image in our model.",
+                    description: "Given a query image we generate words that explain the image best. The likelihood of each word per image is also presented.",
                     templateUrl: "html/image2text.html"
+                },
+                {
+                    title: "Find Similar Images",
+                    description: "Given a query image we find images which are similar to it.",
+                    templateUrl: "html/findsimilar.html"
                 }
             ];
 

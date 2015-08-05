@@ -8,8 +8,8 @@ logger = logging.getLogger(__name__.split('.')[0])
 with open("config.json", "r") as config_file:
     app_config = json.load(config_file)
 
-if ('feeback_table_name' in app_config):
-    feedback_table_name = app_config['feeback_table_name']
+if ('feedback_table_name' in app_config):
+    feedback_table_name = app_config['feedback_table_name']
 else:
     feedback_table_name = 'feedback'
 

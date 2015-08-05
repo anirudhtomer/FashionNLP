@@ -1,7 +1,7 @@
 susana.controller(
     'Image2TextCtrl',
-    ['$scope', '$http','$timeout', 'DataService',
-        function ($scope, $http, $timeout, DataService) {
+    ['$scope', '$http','DataService',
+        function ($scope, $http, DataService) {
 
             var MIN_IMAGES_TO_SHOW = 12;
             var LOAD_MORE_IMAGES_COUNT = 10;
@@ -9,12 +9,13 @@ susana.controller(
             var IMAGES_PER_ROW = 2;
             var LOADED_ATLEAST_ONCE = "LOADED_ATLEAST_ONCE";
 
+            $scope.flashThankYou = false;
+
             $scope.images = [];
 
             $scope.demoModeActive = DataService.isDemoModeActive();
             $scope.checkboxStates = {};
             $scope.tags = "";
-            $scope.feedbackThanksStyle = {};
 
             $scope.incrementPaginationNumber = function (number) {
                 if (number > 3) {
@@ -56,7 +57,7 @@ susana.controller(
             $scope.submitTags = function(){
                 var imgIdArray = getSelectedImageIds();
                 if(imgIdArray.length > 0){
-                    var tags = $scope.tags.trim()
+                    var tags = $scope.tags.trim();
                     if(tags.charAt(tags.length - 1)==','){
                         tags = tags.substring(0, $scope.tags.length - 1);
                     }
@@ -80,8 +81,8 @@ susana.controller(
             };
 
             function showThanksMsg(){
-                $scope.feedbackThanksStyle = {'opacity': 1.0};
-                $timeout(function(){$scope.feedbackThanksStyle = {}}, 2000);
+                $scope.flashThankYou = true;
+                //This property is set false by directive
             }
 
             $scope.searchImages = function (filterKeywords) {
