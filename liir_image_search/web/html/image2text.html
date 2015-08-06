@@ -3,7 +3,8 @@
     <div class="row" keyword-search-box search-box-id="image2txtsearchbox" content-change-callback="searchImages">
     </div>
 
-    <p id="image2textActionPanelTitle" class="text-right text-muted lead" ng-show="demoModeActive==false">Actions for selected images</p>
+    <p id="image2textActionPanelTitle" class="text-right text-muted lead" ng-show="demoModeActive==false">Actions for
+        selected images</p>
     <hr id="image2textActionPanelTopHr" ng-show="demoModeActive==false">
     <div id="image2textActionPanel" class="text-right" ng-show="demoModeActive==false">
         <div class="row">
@@ -11,7 +12,8 @@
         </div>
         <div id="actionBtnRow" class="row">
             <div class="col-md-offset-5 col-md-5 col-sm-7 col-sm-offset-3 col-xs-10 col-lg-6 col-lg-offset-5 actionbtnColForInput">
-                <input class="form-control input-sm" ng-model="tags" placeholder="Enter comma separated tags for selected images">
+                <input class="form-control input-sm" ng-model="tags"
+                       placeholder="Enter comma separated tags for selected images">
             </div>
             <div class="col-xs-2 col-lg-1 actionbtnColForBtn text-right">
                 <button class="btn-primary btn-sm btn" ng-click="submitTags()">Submit Tags</button>
@@ -19,77 +21,46 @@
         </div>
 
         <div class="row">
-            <p class="text-info lead flash-message" flash-message="flashThankYou">Thank you for the feedback. :) </p>
+            <p class="text-info lead flash-message no-padding-margin" flash-message="flashThankYou">Thank you for the feedback. :) </p>
         </div>
     </div>
+    <hr class="no-padding-margin">
 
     <div class="row images-container" infinite-scroll scroll-reached-bottom-callback="loadMoreImages">
         <div class="row image-row" ng-repeat="imgrow in imgRowCountSequence track by $index">
-            <div class="col-md-6 text-center image-item" ng-repeat="imageNum in [0,1]"
-                 ng-hide="($parent.$index*2 + imageNum) >= images.length">
+            <div class="col-md-12 text-center image-item" ng-repeat="imageNum in [0]"
+                 ng-hide="($parent.$index*IMAGES_PER_ROW + imageNum) >= images.length">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="checkbox text-left" ng-show="demoModeActive==false">
-                            <label class="text-primary">
+                            <label class="lead text-muted">
                                 <input type="checkbox"
-                                       ng-model="checkboxStates[images[$parent.$index*2 + imageNum].imgid]">
+                                       ng-model="checkboxStates[images[$parent.$index*IMAGES_PER_ROW + imageNum].imgid]">
                                 Select Image
                             </label>
                         </div>
-                        <hr class="checkbox-hr" ng-show="demoModeActive==false">
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <img class="image2textimage" ng-src="{{images[$parent.$index*2 + imageNum].imageUrl}}"/>
-                        </div>
-                        <div class="col-sm-6" ng-init="paginationNum=1;">
-                            <div>
-                                <h4>Original Words</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="" class="thumbnail">
+                        <img ng-src="{{images[$parent.$index*IMAGES_PER_ROW + imageNum].imageUrl}}"/>
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <p class="text-primary lead">Original Words</p>
 
-                                <p class="text-capitalize text-muted">{{images[$parent.$index*2 +
-                                    imageNum].wordsTrueProjection}}</p>
-                                <h4>Words Predicted</h4>
+                        <p class="text-muted">
+                            <span ng-class="{'label': isTrueWordInPredictedWordsArray(trueWord, $parent.$parent.$index*IMAGES_PER_ROW + imageNum),
+                                              'label-success': isTrueWordInPredictedWordsArray(trueWord, $parent.$parent.$index*IMAGES_PER_ROW + imageNum),
+                                              'img2txt-original-word': true}"
+                                    ng-repeat="trueWord in images[$parent.$index*IMAGES_PER_ROW + imageNum].wordsTrueProjectionArray">{{trueWord}}</span>
+                        </p>
 
-                                <div ng-repeat="predictedWord in images[$parent.$index*2 + imageNum].wordsPredicted"
-                                     class="progress" ng-show="$index>=(paginationNum-1)*5 && $index<paginationNum*5">
-                                    <div ng-class="{'text-capitalize': true, 'progress-bar': true, 'progress-bar-success': predictedWord.score >= 90, 'progress-bar-info': predictedWord.score >= 80 && predictedWord.score < 90, 'progress-bar-warning': predictedWord.score >= 70 && predictedWord.score < 80, 'progress-bar-danger': predictedWord.score >= 60 && predictedWord.score < 70 }"
-                                         role="progressbar" aria-valuenow="{{predictedWord.score}}" aria-valuemin="0"
-                                         aria-valuemax="100"
-                                         ng-style="{'width': (predictedWord.score +'%')}">
-                                        {{predictedWord.word + ' (' + predictedWord.score + '%' + ')'}}
-                                    </div>
-                                </div>
-                            </div>
-                            <nav>
-                                <ul class="pagination pagination-sm">
-                                    <li ng-click="paginationNum = decrementPaginationNumber(paginationNum)"
-                                        ng-class="{'disabled': paginationNum<2}">
-                                        <a href="" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li ng-class="{'active': paginationNum==1}" ng-click="paginationNum = 1"><a href="">1</a>
-                                    </li>
-                                    <li ng-class="{'active': paginationNum==2}" ng-click="paginationNum = 2"><a href="">2</a>
-                                    </li>
-                                    <li ng-class="{'active': paginationNum==3}" ng-click="paginationNum = 3"><a href="">3</a>
-                                    </li>
-                                    <li ng-class="{'active': paginationNum==4}" ng-click="paginationNum = 4"><a href="">4</a>
-                                    </li>
-                                    <li ng-click="paginationNum = incrementPaginationNumber(paginationNum)"
-                                        ng-class="{'disabled': paginationNum>4}">
-                                        <a href="" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <!--<h3 class="text-center image-title">Words Predicted</h3>
-
-                        <p class="text-capitalize text-muted text-justify">
-                            {{images[$parent.$index*2 + imageNum].wordsPredictedStr}}
-                        </p>-->
+                        <p class="text-primary lead">Words Predicted</p>
+                        <!--<p class="">{{images[$parent.$index*IMAGES_PER_ROW + imageNum].wordsPredictedStr}}</p>-->
+                        <div class="img2txt-pie-chart" pie-chart
+                             pie-chart-data="images[$parent.$index*IMAGES_PER_ROW + imageNum].wordsPredictedArray" image-id="images[$parent.$index*IMAGES_PER_ROW + imageNum].imgid"></div>
                     </div>
                 </div>
             </div>

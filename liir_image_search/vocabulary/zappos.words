@@ -1,10 +1,10 @@
-plus size
+plus_size
 petite
 juniors
 short
 long
-knee length
-tea length
+knee_length
+tea_length
 asymmetrical
 casual
 dress
@@ -15,11 +15,11 @@ wedding
 bridesmaid
 prom
 homecoming
-little black dress
+little_black_dress
 office
 career
-wear to work
-mother of the bride
+wear_to_work
+mother_of_the_bride
 athletic
 nightclub
 a-line
@@ -27,49 +27,49 @@ tank
 sheath
 shift
 maxi
-high waist
+high_waist
 gown
 strapless
-wrap dress
+wrap_dress
 halter
 tunic
-high low
+high_low
 shirt
 empire
-baby doll
-one shoulder
-dropped waist
+baby_doll
+one_shoulder
+dropped_waist
 bustier
-cover up
+cover_up
 sport
 sweater
 coat
 sleeveless
-short sleeves
-3/4 sleeve
-long sleeves
+short_sleeves
+3/4_sleeve
+long_sleeves
 scoop
 v-neck
 crew
 boatneck
 sweetheart
 keyhole
-square neck
+square_neck
 spread
-off the shoulder
+off_the_shoulder
 cowl
 point
-mock turtleneck
+mock_turtleneck
 wide
 mandarin
 turtleneck
 banded
 ballet
 snap
-peter pan
-notch lapel
+peter_pan
+notch_lapel
 shawl
-1/4 zip
+1/4_zip
 black
 blue
 white
@@ -93,7 +93,7 @@ burgundy
 khaki
 neutral
 taupe
-animal print
+animal_print
 olive
 metallic
 mahogany
@@ -124,7 +124,7 @@ denim
 acrylic
 twill
 terry
-faux leather
+faux_leather
 leather
 ramie
 velvet
@@ -136,7 +136,7 @@ synthetic
 cashmere
 felt
 microfiber
-action sports
+action_sports
 summer
 western
 spring
@@ -149,33 +149,33 @@ surf
 retro
 sports
 athleisure
-floral print
-horizontal stripes
+floral_print
+horizontal_stripes
 geometric
 tie-dye
-vertical stripes
+vertical_stripes
 paisley
 chevron
 abstract
-polka dot
+polka_dot
 tropical
 jacquard
 ombre
-leopard print
+leopard_print
 plaid
-snake print
-pin stripes
+snake_print
+pin_stripes
 dip-dyed
-zebra print
+zebra_print
 brocade
 aztec
 reptile
 gingham
 camo
 checkered
-cheetah print
+cheetah_print
 argyle
-tattoo print
+tattoo_print
 houndstooth
 patchwork
 ruched
@@ -195,14 +195,14 @@ applique
 zipper
 crystals
 screenprint
-contrast stitching
+contrast_stitching
 peplum
 rhinestones
 buttons
 chains
 studded
 flowers
-faux pockets
+faux_pockets
 grommets
 epaulette
 ribbons

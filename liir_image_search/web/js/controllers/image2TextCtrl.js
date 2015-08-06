@@ -3,10 +3,10 @@ susana.controller(
     ['$scope', '$http','DataService',
         function ($scope, $http, DataService) {
 
-            var MIN_IMAGES_TO_SHOW = 12;
+            var MIN_IMAGES_TO_SHOW = 2;
             var LOAD_MORE_IMAGES_COUNT = 10;
 
-            var IMAGES_PER_ROW = 2;
+            $scope.IMAGES_PER_ROW = 1;
             var LOADED_ATLEAST_ONCE = "LOADED_ATLEAST_ONCE";
 
             $scope.flashThankYou = false;
@@ -17,29 +17,28 @@ susana.controller(
             $scope.checkboxStates = {};
             $scope.tags = "";
 
-            $scope.incrementPaginationNumber = function (number) {
-                if (number > 3) {
-                    return 4;
-                }
-                else {
-                    return number + 1;
-                }
-            };
-
-            $scope.decrementPaginationNumber = function (number) {
-                if (number <2 ) {
-                    return 1;
-                }
-                else {
-                    return number - 1;
-                }
-            };
-
             $scope.loadMoreImages = function () {
-                if ($scope.imgRowCountSequence.length * IMAGES_PER_ROW < $scope.images.length) {
-                    var remainingImages = $scope.images.length - $scope.imgRowCountSequence.length * IMAGES_PER_ROW;
-                    var newLength = $scope.imgRowCountSequence.length + ((LOAD_MORE_IMAGES_COUNT < remainingImages) ? Math.ceil(LOAD_MORE_IMAGES_COUNT / IMAGES_PER_ROW) : Math.ceil(remainingImages / IMAGES_PER_ROW));
+                if ($scope.imgRowCountSequence.length * $scope.IMAGES_PER_ROW < $scope.images.length) {
+                    var remainingImages = $scope.images.length - $scope.imgRowCountSequence.length * $scope.IMAGES_PER_ROW;
+                    var newLength = $scope.imgRowCountSequence.length + ((LOAD_MORE_IMAGES_COUNT < remainingImages) ? Math.ceil(LOAD_MORE_IMAGES_COUNT / $scope.IMAGES_PER_ROW) : Math.ceil(remainingImages / $scope.IMAGES_PER_ROW));
                     $scope.imgRowCountSequence = new Array(newLength);
+                }
+            };
+
+            $scope.isTrueWordInPredictedWordsArray = function(trueWord, imageIndex){
+                if(trueWord==="dress"){
+                    return true;
+                }
+
+                var imageItem = $scope.images[imageIndex];
+                if(angular.isDefined(imageItem)){
+                    for(var i=0; i<imageItem.wordsPredictedArray.length; i++){
+                        if(trueWord===imageItem.wordsPredictedArray[i].word){
+                            return true;
+                        }
+                    }
+                }else{
+                    return false;
                 }
             };
 
@@ -91,7 +90,7 @@ susana.controller(
                 } else {
                     $scope.images = DataService.searchImg2TxtImages(filterKeywords);
                 }
-                $scope.imgRowCountSequence = new Array(($scope.images.length > MIN_IMAGES_TO_SHOW) ? Math.ceil(MIN_IMAGES_TO_SHOW / IMAGES_PER_ROW) : Math.ceil($scope.images.length / IMAGES_PER_ROW));
+                $scope.imgRowCountSequence = new Array(($scope.images.length > MIN_IMAGES_TO_SHOW) ? Math.ceil(MIN_IMAGES_TO_SHOW / $scope.IMAGES_PER_ROW) : Math.ceil($scope.images.length / $scope.IMAGES_PER_ROW));
             };
 
             if (angular.isUndefined(DataService.retrieveData(LOADED_ATLEAST_ONCE))) {

@@ -18,6 +18,7 @@ app.register_blueprint(metadata_service)
 app.register_blueprint(search_service)
 app.register_blueprint(db_service)
 
+#This is used for the Image to text functionality.
 @app.route("/json/<string:file_name>", methods=['POST'])
 def request_json(file_name):
    return jsonify(**json.load(open("json/" + file_name + ".json", "r")))

@@ -41,10 +41,6 @@ def get_rawimages():
 logger.info("loaded: " + __name__)
 
 
-
-
-
-
 '''
  Following stuff to be removed after real binding with engine
 '''

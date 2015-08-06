@@ -1,7 +1,7 @@
 susana.factory(
     'DataService',
-    ['$http', 'TrieService','HashSetService',
-        function ($http, TrieService, HashSetService) {
+    ['$http', '$filter', 'TrieService', 'HashSetService',
+        function ($http, $filter, TrieService, HashSetService) {
 
             var registeredCallbacks = [];
             var vocabLoaded = false;
@@ -14,13 +14,13 @@ susana.factory(
             var imageIndexByKeywordMap = {};
 
             $http({method: 'POST', url: 'metadata/isdemomodeactive'}).success(function (data) {
-                if(angular.isDefined(data.demoModeActive)){
+                if (angular.isDefined(data.demoModeActive)) {
                     demoModeActive = data.demoModeActive;
                 }
             });
 
             $http({method: 'POST', url: 'metadata/getmaxfileuploadsize'}).success(function (data) {
-                if(angular.isDefined(data.maxFileUploadSize)){
+                if (angular.isDefined(data.maxFileUploadSize)) {
                     maxFileUploadSize = data.maxFileUploadSize;
                 }
             });
@@ -74,17 +74,14 @@ susana.factory(
                     images[i] = {imgid: data.items[i].imgid};
                     images[i].imageUrl = data.items[i].folder.split("data/")[1] + data.items[i].img_filename;
                     images[i].wordsPredictedStr = data.items[i].words_predicted.replace(/ /g, ", ").replace(/_/g, " ");
-                    images[i].wordsPredictedArray = images[i].wordsPredictedStr.split(", ");
-                    //images[i].wordsPredictedArray.length = 4;
-                    images[i].wordsPredicted = [];
-                    //Simulation: Tobe removed later
-                    for(k=0;k<images[i].wordsPredictedArray.length;k++){
-                        images[i].wordsPredicted[k] = {word: images[i].wordsPredictedArray[k], score: (95-5*k + Math.floor(Math.random() * 10))};
+                    images[i].wordsPredictedArray = data.items[i].words_predicted_with_scores;
+                    for (j = 0; j < images[i].wordsPredictedArray.length; j++) {
+                        images[i].wordsPredictedArray[j].score = $filter('number')(images[i].wordsPredictedArray[j].score * 100, 2);
                     }
-                    images[i].wordsTrueProjection = data.items[i].words_true_proj.replace(/ /g, ", ");
+                    images[i].wordsTrueProjectionArray = data.items[i].words_true_proj.split(" ");
 
-                    for(var j=0;j<images[i].wordsPredictedArray.length;j++) {
-                        word = images[i].wordsPredictedArray[j];
+                    for (var j = 0; j < images[i].wordsPredictedArray.length; j++) {
+                        word = images[i].wordsPredictedArray[j].word;
                         if (angular.isUndefined(imageIndexByKeywordMap[word])) {
                             imageIndexByKeywordMap[word] = [];
                         }
@@ -117,25 +114,29 @@ susana.factory(
                 return storage[key];
             }
 
-            function searchImg2TxtImages(filterKeywords){
+            function searchImg2TxtImages(filterKeywords) {
                 var totalFilterKeywords = filterKeywords.length;
                 var imageIndexMap = {};
-                for(var i=0;i<totalFilterKeywords;i++){
+                for (var i = 0; i < totalFilterKeywords; i++) {
                     var imageIndexArray = imageIndexByKeywordMap[filterKeywords[i]];
-                    for(j=0;j<imageIndexArray.length;j++){
-                        imageIndex = imageIndexArray[j];
-                        if(angular.isUndefined(imageIndexMap[imageIndex])){
-                            imageIndexMap[imageIndex] = 0;
+                    if (angular.isDefined(imageIndexArray)) {
+                        for (j = 0; j < imageIndexArray.length; j++) {
+                            imageIndex = imageIndexArray[j];
+                            if (angular.isUndefined(imageIndexMap[imageIndex])) {
+                                imageIndexMap[imageIndex] = 0;
+                            }
+                            imageIndexMap[imageIndex]++;
                         }
-                        imageIndexMap[imageIndex]++;
+                    }else{//no image has that keyword
+                        return [];
                     }
                 }
 
                 var images = [];
-                var k=0;
-                for(var index in imageIndexMap){
+                var k = 0;
+                for (var index in imageIndexMap) {
                     if (imageIndexMap.hasOwnProperty(index)) {
-                        if(imageIndexMap[index]===totalFilterKeywords) {
+                        if (imageIndexMap[index] === totalFilterKeywords) {
                             images[k++] = storage[IMAGE_2_TEXT_IMAGES][index];
                         }
                     }
@@ -150,10 +151,10 @@ susana.factory(
                 'searchImg2TxtImages': searchImg2TxtImages,
                 'storeData': storeData,
                 'retrieveData': retrieveData,
-                'isDemoModeActive': function(){
+                'isDemoModeActive': function () {
                     return demoModeActive;
                 },
-                'getMaxFileUploadSize': function(){
+                'getMaxFileUploadSize': function () {
                     return maxFileUploadSize;
                 }
             };

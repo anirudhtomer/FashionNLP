@@ -18,3 +18,12 @@ susana.filter(
             }
         };
     }]);
+
+susana.filter(
+    'RandomFilter', [function () {
+
+        var count = 0;
+        return function (input) {
+            return input + "   " + count++;
+        };
+    }]);
