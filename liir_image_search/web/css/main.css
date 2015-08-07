@@ -160,6 +160,9 @@
 .img2txt-original-word {
   font-size: 100%;
   margin-right: 10px;
+  margin-bottom: 7px;
+  display: inline-block;
+  white-space: nowrap;
 }
 #dragdroptitle {
   font-size: 25px;

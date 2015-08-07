@@ -51,12 +51,12 @@
                     <div class="col-md-8">
                         <p class="text-primary lead">Original Words</p>
 
-                        <p class="text-muted">
-                            <span ng-class="{'label': isTrueWordInPredictedWordsArray(trueWord, $parent.$parent.$index*IMAGES_PER_ROW + imageNum),
+                        <ul class="text-muted">
+                            <li ng-class="{'label': true, 'label-default': !isTrueWordInPredictedWordsArray(trueWord, $parent.$parent.$index*IMAGES_PER_ROW + imageNum),
                                               'label-success': isTrueWordInPredictedWordsArray(trueWord, $parent.$parent.$index*IMAGES_PER_ROW + imageNum),
                                               'img2txt-original-word': true}"
-                                  ng-repeat="trueWord in images[$parent.$index*IMAGES_PER_ROW + imageNum].words_true_proj">{{trueWord}}</span>
-                        </p>
+                                  ng-repeat="trueWord in images[$parent.$index*IMAGES_PER_ROW + imageNum].words_true_proj">{{trueWord}}</li>
+                        </ul>
 
                         <p class="text-primary lead">Words Predicted</p>
                         <!--<p class="">{{images[$parent.$index*IMAGES_PER_ROW + imageNum].words_predicted}}</p>-->
