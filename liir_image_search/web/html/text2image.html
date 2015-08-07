@@ -3,9 +3,9 @@
     </div>
 
     <div class="row image-row" ng-repeat="imageRowNum in imageRowSequence track by $index">
-        <div class="col-sm-3 text-center" ng-repeat="imageNum in [0,1,2,3]" ng-hide="($parent.$index*4 + imageNum) >= filteredImages.length">
-            <img class="text2image-img" ng-src="{{filteredImages[$parent.$index*4 + imageNum].url}}"/>
-            <p class="text-muted lead"> {{'Score:' + filteredImages[$parent.$index*4 + imageNum].score}}</p>
+        <div class="col-sm-3 text-center" ng-repeat="imageNum in [0,1,2,3]" ng-hide="($parent.$index*IMAGES_PER_ROW  + imageNum) >= filteredImages.length">
+            <img class="text2image-img" ng-src="{{filteredImages[$parent.$index*IMAGES_PER_ROW  + imageNum].url}}"/>
+            <!--<p class="text-muted lead"> {{'Score:' + filteredImages[$parent.$index*IMAGES_PER_ROW  + imageNum].score}}</p>-->
         </div>
     </div>
 </div>

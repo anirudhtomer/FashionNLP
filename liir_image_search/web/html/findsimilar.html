@@ -1,16 +1,31 @@
 <div ng-controller="FindSimilarCtrl">
     <div class="row">
-        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 well" nv-file-drop
+        <div class="col-lg-12 well" nv-file-drop
              uploader="uploader">
-            <h3 class="text-center text-muted">
+            <p id="dragdroptitle" class="text-center text-muted">
                 Drag and Drop an Image
-            </h3>
+            </p>
 
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-                    <a href="" class="thumbnail" ng-show="activeImage.anyActive">
-                        <img ng-src="{{activeImage.url}}" alt="{{activeImage.title}}">
+            <div class="row" ng-show="activeImage.anyActive">
+                <div class="col-md-5">
+                    <a href="" class="thumbnail">
+                        <img ng-src="{{activeImage.imageDetails.imageUrl}}" alt="{{activeImage.imageDetails.asin}}">
                     </a>
+                </div>
+                <div class="col-md-7">
+                    <p class="text-primary lead">Original Words</p>
+
+                    <p class="text-muted">
+                            <span ng-class="{'label': isTrueWordInPredictedWordsArray(trueWord),
+                                              'label-success': isTrueWordInPredictedWordsArray(trueWord),
+                                              'img2txt-original-word': true}"
+                                  ng-repeat="trueWord in activeImage.imageDetails.words_true_proj">{{trueWord}}</span>
+                    </p>
+
+                    <p class="text-primary lead">Words Predicted</p>
+                    <!--<p class="">{{activeImage.imageDetails.words_predicted}}</p>-->
+                    <div class="img2txt-pie-chart" pie-chart
+                         pie-chart-data="activeImage.imageDetails.words_predicted_with_scores" image-id="activeImage.imageDetails.imageUrl"></div>
                 </div>
             </div>
 
@@ -24,5 +39,13 @@
 
     <div class="text-center">
         <p class="text-danger lead flash-message" flash-message="flashError">{{errorMessage}}</p>
+    </div>
+
+    <p class="lead text-primary text-center" ng-show="activeImage.anyActive">Similar Images</p>
+    <div class="row image-row" ng-repeat="imageRowNum in imageRowSequence track by $index" ng-show="activeImage.anyActive">
+        <div class="col-sm-3 text-center" ng-repeat="imageNum in [0,1,2,3]" ng-hide="($parent.$index*IMAGES_PER_ROW  + imageNum) >= similarImages.length">
+            <img class="text2image-img" ng-src="{{similarImages[$parent.$index*IMAGES_PER_ROW  + imageNum].url}}"/>
+            <!--<p class="text-muted lead"> {{'Score:' + filteredImages[$parent.$index*IMAGES_PER_ROW  + imageNum].score}}</p>-->
+        </div>
     </div>
 </div>

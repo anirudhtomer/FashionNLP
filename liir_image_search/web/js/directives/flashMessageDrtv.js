@@ -8,7 +8,9 @@ susana.directive('flashMessage',
                     scope.$watch("$parent." + attrs.flashMessage, function (newVal, oldVal) {
                         if(newVal==true){
                             element.css("opacity", 1.0);
-                            $timeout(function(){element.css("opacity", "");}, 2000);
+                            $timeout(function(){
+                                element.css("opacity", "");
+                            }, 3000);
                             scope.$parent[attrs.flashMessage] = false;
                         }
                     });

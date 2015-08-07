@@ -2,11 +2,42 @@ susana.controller(
     'FindSimilarCtrl',
     ['$scope','FileUploader','DataService',
         function ($scope, FileUploader, DataService) {
-            $scope.activeImage = {
-                anyActive: false
+            $scope.IMAGES_PER_ROW  = 4;
+
+            $scope.resetActiveImage=function(){
+                $scope.activeImage = {
+                    anyActive: false,
+                    imageDetails: {
+                        words_predicted_with_scores: [],
+                        words_predicted: "",
+                        words_true_proj: [],
+                        image_url: ""
+                    }
+                };
             };
+            $scope.resetActiveImage();
 
             $scope.flashError = false;
+
+            $scope.isTrueWordInPredictedWordsArray = function(trueWord){
+                if(trueWord==="dress"){
+                    return true;
+                }
+
+                var imageItem =  $scope.activeImage.imageDetails;
+                if(angular.isDefined(imageItem)){
+                    for(var i=0; i<imageItem.words_predicted_with_scores.length; i++){
+                        if(trueWord===imageItem.words_predicted_with_scores[i].word){
+                            return true;
+                        }
+                    }
+                }else{
+                    return false;
+                }
+            };
+
+            $scope.similarImages = [];
+            $scope.imageRowSequence = new Array(0);
 
             var uploader=$scope.uploader = new FileUploader({
                 url: 'upload/image'
@@ -52,19 +83,23 @@ susana.controller(
                 console.info('onProgressAll', progress);
             };
             uploader.onSuccessItem = function(fileItem, response, status, headers) {
-                console.info('onSuccessItem', fileItem, response, status, headers);
+                $scope.activeImage.anyActive = true;
+                $scope.activeImage.imageDetails = DataService.processImg2TxtResponseItem(response.imgDetails);
+                $scope.activeImage.imageDetails.imageUrl = "uploadedImages/" + fileItem.file.name;
+
+                $scope.similarImages = response.similarImages;
+                $scope.imageRowSequence = new Array(Math.ceil($scope.similarImages.length / $scope.IMAGES_PER_ROW ));
             };
             uploader.onErrorItem = function(fileItem, response, status, headers) {
-                console.info('onErrorItem', fileItem, response, status, headers);
+                $scope.errorMessage="We had an error uploading the image.";
+                $scope.flashError = true;
+                $scope.resetActiveImage();
             };
             uploader.onCancelItem = function(fileItem, response, status, headers) {
                 console.info('onCancelItem', fileItem, response, status, headers);
             };
             uploader.onCompleteItem = function(fileItem, response, status, headers) {
                 console.info('onCompleteItem', fileItem, response, status, headers);
-                $scope.activeImage.anyActive = true;
-                $scope.activeImage.url = "uploadedImages/" + fileItem.file.name;
-
             };
             uploader.onCompleteAll = function() {
                 console.info('onCompleteAll');
@@ -73,9 +108,6 @@ susana.controller(
             $scope.uploadFile = function(){
                 uploader.uploadAll();
             };
-
-
-             //   $("#fileu").filestyle({input: false});
 
             console.info('uploader', uploader);
         }

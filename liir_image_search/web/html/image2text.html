@@ -21,7 +21,8 @@
         </div>
 
         <div class="row">
-            <p class="text-info lead flash-message no-padding-margin" flash-message="flashThankYou">Thank you for the feedback. :) </p>
+            <p class="text-info lead flash-message no-padding-margin" flash-message="flashThankYou">Thank you for the
+                feedback. :) </p>
         </div>
     </div>
     <hr class="no-padding-margin">
@@ -44,7 +45,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <a href="" class="thumbnail">
-                        <img ng-src="{{images[$parent.$index*IMAGES_PER_ROW + imageNum].imageUrl}}"/>
+                            <img ng-src="{{images[$parent.$index*IMAGES_PER_ROW + imageNum].imageUrl}}"/>
                         </a>
                     </div>
                     <div class="col-md-8">
@@ -54,13 +55,14 @@
                             <span ng-class="{'label': isTrueWordInPredictedWordsArray(trueWord, $parent.$parent.$index*IMAGES_PER_ROW + imageNum),
                                               'label-success': isTrueWordInPredictedWordsArray(trueWord, $parent.$parent.$index*IMAGES_PER_ROW + imageNum),
                                               'img2txt-original-word': true}"
-                                    ng-repeat="trueWord in images[$parent.$index*IMAGES_PER_ROW + imageNum].wordsTrueProjectionArray">{{trueWord}}</span>
+                                  ng-repeat="trueWord in images[$parent.$index*IMAGES_PER_ROW + imageNum].words_true_proj">{{trueWord}}</span>
                         </p>
 
                         <p class="text-primary lead">Words Predicted</p>
-                        <!--<p class="">{{images[$parent.$index*IMAGES_PER_ROW + imageNum].wordsPredictedStr}}</p>-->
+                        <!--<p class="">{{images[$parent.$index*IMAGES_PER_ROW + imageNum].words_predicted}}</p>-->
                         <div class="img2txt-pie-chart" pie-chart
-                             pie-chart-data="images[$parent.$index*IMAGES_PER_ROW + imageNum].wordsPredictedArray" image-id="images[$parent.$index*IMAGES_PER_ROW + imageNum].imgid"></div>
+                             pie-chart-data="images[$parent.$index*IMAGES_PER_ROW + imageNum].words_predicted_with_scores"
+                             image-id="images[$parent.$index*IMAGES_PER_ROW + imageNum].imgid"></div>
                     </div>
                 </div>
             </div>

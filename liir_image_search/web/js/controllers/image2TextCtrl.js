@@ -32,8 +32,8 @@ susana.controller(
 
                 var imageItem = $scope.images[imageIndex];
                 if(angular.isDefined(imageItem)){
-                    for(var i=0; i<imageItem.wordsPredictedArray.length; i++){
-                        if(trueWord===imageItem.wordsPredictedArray[i].word){
+                    for(var i=0; i<imageItem.words_predicted_with_scores.length; i++){
+                        if(trueWord===imageItem.words_predicted_with_scores[i].word){
                             return true;
                         }
                     }

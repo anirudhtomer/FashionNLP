@@ -13,8 +13,11 @@ TEXT2IMAGE_COUNT = app_config['text2image_count']
 
 search_service = Blueprint("search_service", __name__)
 
-with open("json/rawdata_orig.json", "r") as rawdata_file:
+with open(app_config['rawdata_file'], "r") as rawdata_file:
     rawdata = json.load(rawdata_file)['dresses']
+
+with open(app_config['img2txt_file'], "r") as img2txt_file:
+    img2txtdata = json.load(img2txt_file)['items']
 
 @search_service.route("/search/text2image", methods=['POST'])
 def get_images():
@@ -37,6 +40,27 @@ def get_rawimages():
         response.append(rawdata[i])
 
     return jsonify(images=response)
+
+@search_service.route("/search/img2txt", methods=['POST'])
+def request_json():
+   return jsonify(images=img2txtdata)
+
+@search_service.route("/upload/image", methods=['POST'])
+def upload_image():
+    logger.info("file save request arrived")
+    file = request.files['file']
+    file.save(app_config['upload_folder'] + "/" + file.filename)
+    #Similar images
+    indices = random.sample(range(0, len(predicted_imgs) - 1), TEXT2IMAGE_COUNT)
+    similar_images = []
+    for i in indices:
+        similar_images.append({'url': predicted_imgs[i].split("data/")[1], 'score': i})
+
+    response={
+        'imgDetails': img2txtdata[random.sample(range(0, len(predicted_imgs) - 1), 1)[0]],
+        'similarImages': similar_images
+    }
+    return jsonify(**response)
 
 logger.info("loaded: " + __name__)
 

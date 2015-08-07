@@ -61,27 +61,29 @@ susana.factory(
                 registeredCallbacks.length = 0;
             });
 
+            function processImg2TxtResponseItem(imageItem){
+                imageItem.imageUrl = imageItem.folder.split("data/")[1] + imageItem.img_filename;
+                imageItem.words_predicted = imageItem.words_predicted.replace(/ /g, ", ").replace(/_/g, " ");
+                for (j = 0; j < imageItem.words_predicted_with_scores.length; j++) {
+                    imageItem.words_predicted_with_scores[j].score = $filter('number')(imageItem.words_predicted_with_scores[j].score * 100, 2);
+                }
+                imageItem.words_true_proj = imageItem.words_true_proj.split(" ");
+                return imageItem;
+            }
+
             /******************************************
              * Creating a Filter for Images
              ******************************************/
             $http({
                 method: 'POST',
-                url: 'json/img2txt'
+                url: 'search/img2txt'
             }).success(function (data) {
 
-                var images = [];
-                for (var i = 0; i < data.items.length; i++) {
-                    images[i] = {imgid: data.items[i].imgid};
-                    images[i].imageUrl = data.items[i].folder.split("data/")[1] + data.items[i].img_filename;
-                    images[i].wordsPredictedStr = data.items[i].words_predicted.replace(/ /g, ", ").replace(/_/g, " ");
-                    images[i].wordsPredictedArray = data.items[i].words_predicted_with_scores;
-                    for (j = 0; j < images[i].wordsPredictedArray.length; j++) {
-                        images[i].wordsPredictedArray[j].score = $filter('number')(images[i].wordsPredictedArray[j].score * 100, 2);
-                    }
-                    images[i].wordsTrueProjectionArray = data.items[i].words_true_proj.split(" ");
-
-                    for (var j = 0; j < images[i].wordsPredictedArray.length; j++) {
-                        word = images[i].wordsPredictedArray[j].word;
+                var images = data.images;
+                for (var i = 0; i < images.length; i++) {
+                    images[i]=processImg2TxtResponseItem(images[i])
+                    for (var j = 0; j < images[i].words_predicted_with_scores.length; j++) {
+                        word = images[i].words_predicted_with_scores[j].word;
                         if (angular.isUndefined(imageIndexByKeywordMap[word])) {
                             imageIndexByKeywordMap[word] = [];
                         }
@@ -137,7 +139,7 @@ susana.factory(
                 for (var index in imageIndexMap) {
                     if (imageIndexMap.hasOwnProperty(index)) {
                         if (imageIndexMap[index] === totalFilterKeywords) {
-                            images[k++] = storage[IMAGE_2_TEXT_IMAGES][index];
+                            images[k++] = retrieveData(IMAGE_2_TEXT_IMAGES)[index];
                         }
                     }
                 }
@@ -151,6 +153,7 @@ susana.factory(
                 'searchImg2TxtImages': searchImg2TxtImages,
                 'storeData': storeData,
                 'retrieveData': retrieveData,
+                'processImg2TxtResponseItem': processImg2TxtResponseItem,
                 'isDemoModeActive': function () {
                     return demoModeActive;
                 },
