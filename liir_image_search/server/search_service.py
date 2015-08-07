@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-import json,logging, logging.config
+import json, logging, logging.config
 import random
 
 with open("logging.json", "r") as logging_file:
@@ -13,22 +13,33 @@ TEXT2IMAGE_COUNT = app_config['text2image_count']
 
 search_service = Blueprint("search_service", __name__)
 
+logger.debug("Reading raw data file")
 with open(app_config['rawdata_file'], "r") as rawdata_file:
     rawdata = json.load(rawdata_file)['dresses']
 
+logger.debug("Reading image to text file")
 with open(app_config['img2txt_file'], "r") as img2txt_file:
     img2txtdata = json.load(img2txt_file)['items']
+
+logger.debug("Creating File name to image item map")
+filename2imageitem_map = {}
+for img2txtitem in img2txtdata:
+    filename2imageitem_map[img2txtitem['img_filename']] = img2txtitem
+
+#CAll susana's actual function here
+def findImagesForTheText(keywords):
+    logger.debug(keywords)
+    indices = random.sample(range(0, len(predicted_imgs) - 1), TEXT2IMAGE_COUNT)
+    image_set = []
+    for i in indices:
+        image_set.append({'url': predicted_imgs[i].split("data/")[1], 'score': i})
+    return image_set
 
 @search_service.route("/search/text2image", methods=['POST'])
 def get_images():
     request_obj = request.get_json()
-    logger.debug(request_obj['keywords'])
-    indices = random.sample(range(0, len(predicted_imgs) - 1), TEXT2IMAGE_COUNT)
-    response = []
-    for i in indices:
-        response.append({'url': predicted_imgs[i].split("data/")[1], 'score': i})
+    return jsonify(images=findImagesForTheText(request_obj['keywords']))
 
-    return jsonify(images=response)
 
 @search_service.route("/search/rawimages", methods=['POST'])
 def get_rawimages():
@@ -41,29 +52,28 @@ def get_rawimages():
 
     return jsonify(images=response)
 
+
 @search_service.route("/search/img2txt", methods=['POST'])
 def request_json():
-   return jsonify(images=img2txtdata)
+    return jsonify(images=img2txtdata)
+
 
 @search_service.route("/upload/image", methods=['POST'])
 def upload_image():
     logger.info("file save request arrived")
     file = request.files['file']
-    file.save(app_config['upload_folder'] + "/" + file.filename)
-    #Similar images
-    indices = random.sample(range(0, len(predicted_imgs) - 1), TEXT2IMAGE_COUNT)
-    similar_images = []
-    for i in indices:
-        similar_images.append({'url': predicted_imgs[i].split("data/")[1], 'score': i})
 
-    response={
-        'imgDetails': img2txtdata[random.sample(range(0, len(predicted_imgs) - 1), 1)[0]],
-        'similarImages': similar_images
-    }
+    response = {'failureReason': ""}
+    if file.filename in filename2imageitem_map:
+        file.save(app_config['upload_folder'] + "/" + file.filename)
+        response['imgDetails'] = filename2imageitem_map[file.filename]
+        response['similarImages'] = findImagesForTheText(response['imgDetails']['words_predicted'].split(" "))
+    else:
+        response['failureReason'] = "We could not find details for this image"
+
     return jsonify(**response)
 
 logger.info("loaded: " + __name__)
-
 
 '''
  Following stuff to be removed after real binding with engine
