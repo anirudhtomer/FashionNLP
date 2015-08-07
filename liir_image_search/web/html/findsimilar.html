@@ -12,15 +12,15 @@
                         <img ng-src="{{activeImage.imageDetails.imageUrl}}" alt="{{activeImage.imageDetails.asin}}">
                     </a>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-7 text-center">
                     <p class="text-primary lead">Original Words</p>
 
-                    <p class="text-muted">
-                            <span ng-class="{'label': isTrueWordInPredictedWordsArray(trueWord),
+                    <ul class="original-words-ul">
+                        <li ng-class="{'label': true, 'label-default': !isTrueWordInPredictedWordsArray(trueWord),
                                               'label-success': isTrueWordInPredictedWordsArray(trueWord),
                                               'img2txt-original-word': true}"
-                                  ng-repeat="trueWord in activeImage.imageDetails.words_true_proj">{{trueWord}}</span>
-                    </p>
+                            ng-repeat="trueWord in activeImage.imageDetails.words_true_proj">{{trueWord}}</li>
+                    </ul>
 
                     <p class="text-primary lead">Words Predicted</p>
                     <!--<p class="">{{activeImage.imageDetails.words_predicted}}</p>-->
@@ -41,7 +41,6 @@
         <p class="text-danger lead flash-message" flash-message="flashError">{{errorMessage}}</p>
     </div>
 
-    <p class="lead text-primary text-center" ng-show="activeImage.anyActive">Similar Images</p>
     <div class="row image-row" ng-repeat="imageRowNum in imageRowSequence track by $index" ng-show="activeImage.anyActive">
         <div class="col-sm-3 text-center" ng-repeat="imageNum in [0,1,2,3]" ng-hide="($parent.$index*IMAGES_PER_ROW  + imageNum) >= similarImages.length">
             <img class="text2image-img" ng-src="{{similarImages[$parent.$index*IMAGES_PER_ROW  + imageNum].url}}"/>

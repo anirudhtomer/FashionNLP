@@ -157,7 +157,10 @@
   width: 100%;
   height: 400px;
 }
-.img2txt-original-word {
+.original-words-ul {
+  padding-left: 0px;
+}
+.original-words-ul .img2txt-original-word {
   font-size: 100%;
   margin-right: 10px;
   margin-bottom: 7px;

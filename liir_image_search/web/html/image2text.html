@@ -48,10 +48,10 @@
                             <img ng-src="{{images[$parent.$index*IMAGES_PER_ROW + imageNum].imageUrl}}"/>
                         </a>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8 text-center">
                         <p class="text-primary lead">Original Words</p>
 
-                        <ul class="text-muted">
+                        <ul class="original-words-ul">
                             <li ng-class="{'label': true, 'label-default': !isTrueWordInPredictedWordsArray(trueWord, $parent.$parent.$index*IMAGES_PER_ROW + imageNum),
                                               'label-success': isTrueWordInPredictedWordsArray(trueWord, $parent.$parent.$index*IMAGES_PER_ROW + imageNum),
                                               'img2txt-original-word': true}"
