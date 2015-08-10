@@ -7,8 +7,10 @@ susana.directive('autoScrollOn',
                 if (angular.isDefined(attrs.autoScrollOn)) {
                     var watchObjNames = attrs.autoScrollOn.split(",");
                     for(var i=0;i<watchObjNames.length;i++) {
-                        scope.$watch("$parent." + watchObjNames[i], function () {
-                            $("body").animate({scrollTop: element.offset().top}, "slow");
+                        scope.$watch("$parent." + watchObjNames[i], function (newval, oldval) {
+                            if(newval!==oldval) {
+                                $("body, html").animate({scrollTop: element.offset().top}, "slow");
+                            }
                         }, true);
                     }
                 }

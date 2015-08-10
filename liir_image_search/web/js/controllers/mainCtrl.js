@@ -6,7 +6,7 @@ susana.controller(
 
             $scope.onBodyClicked = function () {
                 var searchboxCallbackMap = DataService.retrieveData(SEARCH_BOX_CALLBACK_MAP);
-                if(angular.isDefined(searchboxCallbackMap)) {
+                if (angular.isDefined(searchboxCallbackMap)) {
                     for (var searchboxName in searchboxCallbackMap) {
                         if (searchboxCallbackMap.hasOwnProperty(searchboxName)) {
                             searchboxCallbackMap[searchboxName]();
@@ -14,6 +14,15 @@ susana.controller(
                     }
                 }
             };
+
+            $scope.isBrowserIE = false;
+
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer, return version number
+               $scope.isBrowserIE = true;
+
         }
     ]
 );

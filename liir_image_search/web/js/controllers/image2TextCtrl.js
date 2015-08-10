@@ -3,13 +3,14 @@ susana.controller(
     ['$scope', '$http','DataService',
         function ($scope, $http, DataService) {
 
-            var MIN_IMAGES_TO_SHOW = 2;
+            var MIN_IMAGES_TO_SHOW = 10;
             var LOAD_MORE_IMAGES_COUNT = 10;
 
             $scope.IMAGES_PER_ROW = 1;
             var LOADED_ATLEAST_ONCE = "LOADED_ATLEAST_ONCE";
 
             $scope.flashThankYou = false;
+            $scope.flashSelectImages = false;
 
             $scope.images = [];
 
@@ -65,6 +66,8 @@ susana.controller(
                         url: 'store/tags',
                         data: {'images_id_array': imgIdArray, 'tags': tags}
                     }).success(showThanksMsg);
+                }else{
+                    $scope.flashSelectImages = true;
                 }
             };
 
@@ -76,6 +79,8 @@ susana.controller(
                         url: 'store/misclassfiedimages',
                         data: {'images_misclassified_array': imgIdArray}
                     }).success(showThanksMsg);
+                }else{
+                    $scope.flashSelectImages = true;
                 }
             };
 
