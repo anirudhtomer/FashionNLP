@@ -18,7 +18,14 @@ app.register_blueprint(metadata_service)
 app.register_blueprint(search_service)
 app.register_blueprint(db_service)
 
-if __name__ == "__main__":
-    app.run(port=app_config['server_port'], debug=False, use_reloader=False, use_evalex=False)
+logger.info("All blueprints are registered")
 
-logger.info("loaded: " + __name__)
+if __name__ == "__main__":
+    try:
+        app.run(port=app_config['server_port'], debug=False, use_reloader=False, use_evalex=False)
+    except Exception as e:
+        logger.critical("Server couldn't be started: " + e.args[0])
+
+logger.info("Server: " + __name__ + " is up and running.")
+
+#http://swaroopsm.github.io/12-02-2012-Deploying-Python-Flask-on-Apache-using-mod_wsgi.html

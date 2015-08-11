@@ -3,7 +3,7 @@ import json, logging, logging.config
 
 with open("logging.json", "r") as logging_file:
     logging.config.dictConfig(json.load(logging_file))
-logger = logging.getLogger(__name__.split('.')[0])
+logger = logging.getLogger("static_page_service")
 
 with open("config.json", "r") as config_file:
     app_config = json.load(config_file)
@@ -18,4 +18,4 @@ def index():
 def request_static_file(url_path):
     return static_page_service.send_static_file(url_path)
 
-logger.info("loaded: " + __name__)
+logger.info("Blueprint: " + __name__ + " is loaded.")

@@ -3,7 +3,7 @@ import json, logging, logging.config, sqlite3
 
 with open("logging.json", "r") as logging_file:
     logging.config.dictConfig(json.load(logging_file))
-logger = logging.getLogger(__name__.split('.')[0])
+logger = logging.getLogger("db_service")
 
 with open("config.json", "r") as config_file:
     app_config = json.load(config_file)
@@ -19,7 +19,7 @@ def create_db_connection():
         connection = sqlite3.connect(app_config['sqlite_db_file'])
         return connection
     except sqlite3.Error as e:
-        logger.error(e.args[0])
+        logger.error("Database service will not work: " + e.args[0])
 
 # Create the table if it doesn't exist
 dbconn = create_db_connection()
@@ -34,12 +34,11 @@ if dbconn is not None:
             logger.debug("Table " + feedback_table_name + " created successfully")
             dbconn.commit()
         except sqlite3.Error as e:
-            logger.error(e.args[0])
+            logger.error("Database service will not work: " + e.args[0])
     cursor.close()
     dbconn.close()
 
 db_service = Blueprint("db_service", __name__)
-
 
 def create_feedback_entry_if_not_exists(dbcursor, imageid):
     dbcursor.execute("SELECT * FROM " + feedback_table_name + " WHERE image_id=:imgid", {'imgid': imageid})
@@ -80,7 +79,6 @@ def store_tags():
     dbconn_tags.close()
     return jsonify(success=True)
 
-
 @db_service.route("/store/misclassfiedimages", methods=['POST'])
 def store_misclassifiedimages():
     request_obj = request.get_json()
@@ -105,5 +103,4 @@ def store_misclassifiedimages():
     dbconn_misclassified_images.close()
     return jsonify(success=True)
 
-
-logger.info("loaded: " + __name__)
+logger.info("Blueprint: " + __name__ + " is loaded.")

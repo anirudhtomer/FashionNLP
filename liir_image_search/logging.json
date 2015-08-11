@@ -1,39 +1,73 @@
 {
-    "version": 1,
-    "disable_existing_loggers": false,
-    "formatters": {
-        "simple": {
-            "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        }
-    },
-
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-            "formatter": "simple",
-            "stream": "ext://sys.stdout"
-        },
-
-        "file_handler": {
-            "class": "logging.handlers.RotatingFileHandler",
-            "formatter": "simple",
-            "filename": "log/liir_img_search.log",
-            "maxBytes": 100000000,
-            "backupCount": 20,
-            "encoding": "utf8"
-        }
-    },
-
-    "loggers": {
-        "liir_image_search": {
-            "level": "DEBUG",
-            "handlers": ["console", "file_handler"],
-            "propagate": "no"
-        }
-    },
-
-    "root": {
-        "level": "INFO",
-        "handlers": ["console", "file_handler"]
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "simple": {
+      "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     }
+  },
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "formatter": "simple",
+      "stream": "ext://sys.stdout"
+    },
+    "file_handler": {
+      "class": "logging.handlers.RotatingFileHandler",
+      "formatter": "simple",
+      "filename": "log/liir_img_search.log",
+      "maxBytes": 100000000,
+      "backupCount": 20,
+      "encoding": "utf8"
+    }
+  },
+  "loggers": {
+    "liir_image_search": {
+      "level": "INFO",
+      "handlers": [
+        "console",
+        "file_handler"
+      ],
+      "propagate": "no"
+    },
+    "db_service": {
+      "level": "INFO",
+      "handlers": [
+        "console",
+        "file_handler"
+      ],
+      "propagate": "no"
+    },
+    "metadata_service": {
+      "level": "INFO",
+      "handlers": [
+        "console",
+        "file_handler"
+      ],
+      "propagate": "no"
+    },
+    "search_service": {
+      "level": "INFO",
+      "handlers": [
+        "console",
+        "file_handler"
+      ],
+      "propagate": "no"
+    },
+    "static_page_service": {
+      "level": "INFO",
+      "handlers": [
+        "console",
+        "file_handler"
+      ],
+      "propagate": "no"
+    }
+  },
+  "root": {
+    "level": "WARNING",
+    "handlers": [
+      "console",
+      "file_handler"
+    ]
+  }
 }

@@ -5,7 +5,8 @@ import liir_image_search.server.text2image.dress_demo.demo_code.txt2img.txt2img 
 
 with open("logging.json", "r") as logging_file:
     logging.config.dictConfig(json.load(logging_file))
-logger = logging.getLogger(__name__.split('.')[0])
+
+logger = logging.getLogger("search_service")
 
 with open("config.json", "r") as config_file:
     app_config = json.load(config_file)
