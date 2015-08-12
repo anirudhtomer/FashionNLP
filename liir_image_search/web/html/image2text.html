@@ -21,8 +21,7 @@
         </div>
 
         <div class="row">
-            <p class="text-info lead flash-message no-padding-margin" flash-message="flashThankYou">Thank you for the
-                feedback. :) </p>
+            <p class="text-info lead flash-message no-padding-margin" flash-message="flashThankYou">Thank you for the feedback. :) </p>
             <p class="text-danger lead flash-message no-padding-margin" flash-message="flashSelectImages">Please select at least one image.</p>
         </div>
     </div>
@@ -63,7 +62,8 @@
                         <!--<p class="">{{images[$parent.$index*IMAGES_PER_ROW + imageNum].words_predicted}}</p>-->
                         <div class="img2txt-pie-chart" pie-chart
                              pie-chart-data="images[$parent.$index*IMAGES_PER_ROW + imageNum].words_predicted_with_scores"
-                             image-id="images[$parent.$index*IMAGES_PER_ROW + imageNum].imgid"></div>
+                             image-id="images[$parent.$index*IMAGES_PER_ROW + imageNum].imgid">
+                        </div>
                     </div>
                 </div>
             </div>

@@ -134,8 +134,7 @@
   cursor: pointer;
   color: black;
 }
-.search-box li.keyword-search-box .keyword-select-dropdown .selectable-keyword:hover,
-.search-box li.keyword-search-box .keyword-select-dropdown .selectable-keyword:focus {
+.search-box li.keyword-search-box .keyword-select-dropdown .selectable-keyword .selected-keyword {
   background-color: #1e9bb7;
   color: white;
 }

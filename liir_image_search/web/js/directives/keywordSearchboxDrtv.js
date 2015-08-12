@@ -11,7 +11,7 @@ susana.directive('keywordSearchBox',
                 return "keywordsearchbox" + searchBoxCount++;
             }
 
-            DataService.storeData(SEARCH_BOX_CALLBACK_MAP,{});
+            DataService.storeData(SEARCH_BOX_CALLBACK_MAP, {});
 
             return {
                 restrict: "A",
@@ -32,6 +32,8 @@ susana.directive('keywordSearchBox',
                         filterText: "",
                         showVocabularyDropdown: false
                     };
+
+                    $scope.selectedVocabIndex = -1;
 
                     $scope.searchInputClicked = function ($event) {
                         $event.stopPropagation();
@@ -69,15 +71,54 @@ susana.directive('keywordSearchBox',
                     };
 
                     $scope.checkEnterPressed = function ($event) {
-                        if ($event.which === 13 && angular.isDefined($scope.vocabulary[0])) {
-                            for (var i = 0; i < $scope.vocabulary.length; i++) {
-                                if ($scope.isSelectableKeyword($scope.vocabulary[i])) {
-                                    $scope.addKeyword($event, $scope.vocabulary[i]);
-                                    break;
-                                }
+                        if ($event.which === 13 && $scope.vocabulary.length > 0) {
+                            if ($scope.isSelectableKeyword($scope.vocabulary[$scope.selectedVocabIndex])) {
+                                $scope.addKeyword($event, $scope.vocabulary[$scope.selectedVocabIndex]);
                             }
                         }
                     };
+
+                    $scope.handleOnMouseOver = function (vocabIndex) {
+                        $scope.selectedVocabIndex = vocabIndex;
+                    };
+
+                    $scope.handleKeyDown = function ($event) {
+                        if ($event.which === 38) {
+                            handleArrowUp();
+                        } else if ($event.which === 40) {
+                            handleArrowDown();
+                        }
+                    };
+
+                    function handleArrowUp() {
+                        if ($scope.selectedVocabIndex > 0) {
+                            var indexBeforeUpdating = $scope.selectedVocabIndex;
+                            do {
+                                $scope.selectedVocabIndex--;
+                            } while ($scope.selectedVocabIndex > 0 && !$scope.isSelectableKeyword($scope.vocabulary[$scope.selectedVocabIndex]));
+
+                            //given the order of conditions only checking this condition is sufficient
+                            if (!$scope.isSelectableKeyword($scope.vocabulary[$scope.selectedVocabIndex])) {
+                                $scope.selectedVocabIndex = indexBeforeUpdating;
+                            }
+                        }
+                    }
+
+                    function handleArrowDown() {
+                        if ($scope.selectedVocabIndex < ($scope.vocabulary.length - 1)) {
+                            var indexBeforeUpdating = $scope.selectedVocabIndex;
+                            do {
+                                $scope.selectedVocabIndex++;
+                            } while ($scope.selectedVocabIndex < ($scope.vocabulary.length - 1) && !$scope.isSelectableKeyword($scope.vocabulary[$scope.selectedVocabIndex]));
+
+                            //given the order of conditions only checking this condition is sufficient
+                            if (!$scope.isSelectableKeyword($scope.vocabulary[$scope.selectedVocabIndex])) {
+                                $scope.selectedVocabIndex = indexBeforeUpdating;
+                            }else if($scope.selectedVocabIndex==$scope.vocabCountSequence.length){
+                                $scope.loadMoreVocabulary();
+                            }
+                        }
+                    }
 
                     $scope.$watch('search.filterText', filterVocabulary);
 
@@ -85,6 +126,9 @@ susana.directive('keywordSearchBox',
                         var filteredVocab = DataService.getVocabTrie().search($scope.search.filterText);
                         $scope.vocabulary = filteredVocab.values();
                         $scope.vocabCountSequence = new Array(($scope.vocabulary.length > MIN_WORDS_TO_SHOW) ? MIN_WORDS_TO_SHOW : $scope.vocabulary.length);
+
+                        $scope.selectedVocabIndex = -1;
+                        handleArrowDown();
                     }
 
                     $scope.loadMoreVocabulary = function () {
@@ -120,7 +164,7 @@ susana.directive('keywordSearchBox',
                     }
 
                     var searchboxCallbackMap = DataService.retrieveData(SEARCH_BOX_CALLBACK_MAP);
-                    searchboxCallbackMap[$scope.searchBoxId] = function(){
+                    searchboxCallbackMap[$scope.searchBoxId] = function () {
                         $scope.search.showVocabularyDropdown = false;
                     };
                     DataService.storeData(SEARCH_BOX_CALLBACK_MAP, searchboxCallbackMap);

@@ -6,19 +6,16 @@
   "vocabulary_file": "vocabulary/zappos.words",
   "rawdata_file": "json/rawdata_orig.json",
   "img2txt_file": "json/img2txt.json",
+  "sqlite_db_file": "database.sqlite",
 
-  "__COMMENT3__": "Path for 'sqlite_db_file' should be absolute Operating system file path",
-  "sqlite_db_file": "F:/work/liir.susana/NLPImageSearch/liir_image_search/database.sqlite",
-
-  "__COMMENT4__": "'max_file_upload_size' is in bytes",
+  "__COMMENT3__": "'max_file_upload_size' is in bytes",
   "max_file_upload_size": 100000,
-
-  "__COMMENT5__": "DO NOT CHANGE THE PROPERTY 'upload_folder'. IT IS FOR INTERNAL USE",
-  "upload_folder": "web/uploadedImages",
-
 
   "server_port": 8076,
   "feedback_table_name": "feedback",
   "text2image_count": 15,
-  "demo_mode_active": false
+  "demo_mode_active": false,
+
+  "__COMMENT4__": "DO NOT CHANGE THE PROPERTY 'upload_folder'. IT IS FOR INTERNAL USE",
+  "upload_folder": "web/uploadedImages"
 }

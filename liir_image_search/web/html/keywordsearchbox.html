@@ -9,14 +9,16 @@
     <li class="keyword-search-box">
         <div class="input-group search-group">
             <input ng-model="search.filterText" class="form-control" placeholder="Enter search keywords"
-                   ng-click="searchInputClicked($event)" ng-keypress="checkEnterPressed($event)" ng-focus="searchInputClicked($event)">
+                   ng-click="searchInputClicked($event)" ng-focus="searchInputClicked($event)"
+                   ng-keypress="checkEnterPressed($event)" ng-keydown="handleKeyDown($event)">
             <span class="input-group-addon"><i class="glyphicon glyphicon-search text-primary"></i></span>
         </div>
 
         <div ng-show="search.showVocabularyDropdown" class="keyword-select-dropdown" infinite-scroll scroll-reached-bottom-callback="loadMoreVocabulary">
             <div ng-repeat="keywordNum in vocabCountSequence track by $index"
-                 ng-click="addKeyword($event, vocabulary[$index]);">
-                <p ng-class="{'selectable-keyword': isSelectableKeyword(vocabulary[$index]), 'text-muted': true, 'keyword-text': true, 'text-capitalize': true}"> {{vocabulary[$index] | UnderscoreFilter}}</p>
+                 ng-click="addKeyword($event, vocabulary[$index]);" ng-class="{'selectable-keyword': isSelectableKeyword(vocabulary[$index]), 'text-muted': true}"
+                 ng-mouseover="handleOnMouseOver($index)">
+                <p ng-class="{'selected-keyword': selectedVocabIndex==$index,'keyword-text': true, 'text-capitalize': true}"> {{vocabulary[$index] | UnderscoreFilter}}</p>
             </div>
         </div>
     </li>
