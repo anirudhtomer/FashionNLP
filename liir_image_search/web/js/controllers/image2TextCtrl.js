@@ -10,9 +10,10 @@ susana.controller(
             var LOADED_ATLEAST_ONCE = "LOADED_ATLEAST_ONCE";
 
             $scope.flashThankYou = false;
-            $scope.flashSelectImages = false;
+            $scope.flashError = false;
 
             $scope.images = [];
+            $scope.errorMsg = "";
 
             $scope.demoModeActive = DataService.isDemoModeActive();
             $scope.checkboxStates = {};
@@ -61,13 +62,18 @@ susana.controller(
                     if(tags.charAt(tags.length - 1)==','){
                         tags = tags.substring(0, $scope.tags.length - 1);
                     }
-                    $http({
-                        method: 'POST',
-                        url: 'store/tags',
-                        data: {'images_id_array': imgIdArray, 'tags': tags}
-                    }).success(showThanksMsg);
+
+                    if(tags.length==0){
+                        flashError("Please enter atleast one tag.");
+                    }else {
+                        $http({
+                            method: 'POST',
+                            url: 'store/tags',
+                            data: {'images_id_array': imgIdArray, 'tags': tags}
+                        }).success(processDBRequestResults);
+                    }
                 }else{
-                    $scope.flashSelectImages = true;
+                    flashError("Please select atleast one image.");
                 }
             };
 
@@ -78,14 +84,24 @@ susana.controller(
                         method: 'POST',
                         url: 'store/misclassfiedimages',
                         data: {'images_misclassified_array': imgIdArray}
-                    }).success(showThanksMsg);
+                    }).success(processDBRequestResults);
                 }else{
-                    $scope.flashSelectImages = true;
+                    flashError("Please select atleast one image.");
                 }
             };
 
-            function showThanksMsg(){
-                $scope.flashThankYou = true;
+
+            function flashError(message){
+                $scope.errorMsg = message;
+                $scope.flashError = true;
+            }
+
+            function processDBRequestResults(data){
+                if(data.success==false){
+                    flashError("Apologies this operation could not be performed due to an Internal error.")
+                }else {
+                    $scope.flashThankYou = true;
+                }
                 //This property is set false by directive
             }
 
