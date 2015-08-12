@@ -20,6 +20,7 @@ susana.directive('keywordSearchBox',
                 link: function (scope, element, attrs) {
                 },
                 controller: function ($scope, $element, $attrs) {
+
                     if (angular.isDefined($attrs.searchBoxId)) {
                         $scope.searchBoxId = $attrs.searchBoxId;
                     } else {
@@ -91,31 +92,43 @@ susana.directive('keywordSearchBox',
                     };
 
                     function handleArrowUp() {
+                        var MAX_HEIGHT_ELEMENT = $(".keyword-select-dropdown").height();
+                        var MAX_HEIGHT_CHILDREN = $(".keyword-select-dropdown").children().first().height();
+
                         if ($scope.selectedVocabIndex > 0) {
                             var indexBeforeUpdating = $scope.selectedVocabIndex;
+                            var skipcount = 0;
                             do {
                                 $scope.selectedVocabIndex--;
+                                skipcount++;
                             } while ($scope.selectedVocabIndex > 0 && !$scope.isSelectableKeyword($scope.vocabulary[$scope.selectedVocabIndex]));
 
                             //given the order of conditions only checking this condition is sufficient
                             if (!$scope.isSelectableKeyword($scope.vocabulary[$scope.selectedVocabIndex])) {
                                 $scope.selectedVocabIndex = indexBeforeUpdating;
+                            }else{
+                                $(".keyword-select-dropdown")[0].scrollTop = $(".keyword-select-dropdown")[0].scrollTop - MAX_HEIGHT_CHILDREN * (skipcount>0?skipcount:1);;
                             }
                         }
                     }
 
                     function handleArrowDown() {
+                        var MAX_HEIGHT_ELEMENT = $(".keyword-select-dropdown").height();
+                        var MAX_HEIGHT_CHILDREN = $(".keyword-select-dropdown").children().first().height();
+
                         if ($scope.selectedVocabIndex < ($scope.vocabulary.length - 1)) {
                             var indexBeforeUpdating = $scope.selectedVocabIndex;
+                            var skipcount = 0;
                             do {
                                 $scope.selectedVocabIndex++;
+                                skipcount++;
                             } while ($scope.selectedVocabIndex < ($scope.vocabulary.length - 1) && !$scope.isSelectableKeyword($scope.vocabulary[$scope.selectedVocabIndex]));
 
                             //given the order of conditions only checking this condition is sufficient
                             if (!$scope.isSelectableKeyword($scope.vocabulary[$scope.selectedVocabIndex])) {
                                 $scope.selectedVocabIndex = indexBeforeUpdating;
-                            }else if($scope.selectedVocabIndex==$scope.vocabCountSequence.length){
-                                $scope.loadMoreVocabulary();
+                            } else if ($scope.selectedVocabIndex >= Math.floor(MAX_HEIGHT_ELEMENT / MAX_HEIGHT_CHILDREN)) {
+                                $(".keyword-select-dropdown")[0].scrollTop = $(".keyword-select-dropdown")[0].scrollTop + MAX_HEIGHT_CHILDREN * (skipcount>0?skipcount:1);
                             }
                         }
                     }
