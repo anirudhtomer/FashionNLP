@@ -1,0 +1,96 @@
+\---liir_image_search
+    +---json
+    +---log
+    +---server
+    |   +---text2image
+    |   |   \---dress_demo
+    |   |       +---data
+    |   |       |   +---data-processed
+    |   |       |   |   +---mason-preprocessingfc7
+    |   |       |   |   |   \---test
+    |   |       |   |   |       \---text_visfc7
+    |   |       |   |   \---zappos-preprocessingfc7
+    |   |       |   |       +---test
+    |   |       |   |       |   \---text_visfc7
+    |   |       |   |       \---train_val
+    |   |       |   |           \---text_visfc7
+    |   |       |   +---json
+    |   |       |   \---models
+    |   |       |       \---cca
+    |   |       \---demo_code
+    |   |           +---data_manager
+    |   |           |   \---__pycache__
+    |   |           +---myGibbsProcess
+    |   |           |   +---gibbs_input
+    |   |           |   |   \---__pycache__
+    |   |           |   +---gibbs_output
+    |   |           |   \---__pycache__
+    |   |           +---txt2img
+    |   |           |   \---__pycache__
+    |   |           \---utils_local
+    |   |               \---__pycache__
+    |   \---__pycache__
+    +---vocabulary
+    +---web
+    |   +---.idea
+    |   +---css
+    |   +---html
+    |   +---images
+    |   |   +---BridesmaidDresses
+    |   |   +---BridesmaidDresses2
+    |   |   +---Casual
+    |   |   +---Casual2
+    |   |   +---Dresses
+    |   |   +---Dresses2
+    |   |   +---MotheroftheBrideDresses
+    |   |   +---MotheroftheBrideDresses2
+    |   |   +---NightOutCocktail
+    |   |   +---NightOutCocktail2
+    |   |   +---SpecialOccasion
+    |   |   +---SpecialOccasion2
+    |   |   +---WeartoWork
+    |   |   +---WeartoWork2
+    |   |   +---Wedding
+    |   |   +---Wedding2
+    |   |   +---WeddingDresses
+    |   |   \---WeddingDresses2
+    |   +---js
+    |   |   +---controllers
+    |   |   +---directives
+    |   |   +---filters
+    |   |   \---services
+    |   +---lib
+    |   |   +---amcharts
+    |   |   |   +---images
+    |   |   |   +---lang
+    |   |   |   +---patterns
+    |   |   |   |   +---black
+    |   |   |   |   +---chalk
+    |   |   |   |   \---white
+    |   |   |   +---plugins
+    |   |   |   |   +---dataloader
+    |   |   |   |   |   +---examples
+    |   |   |   |   |   |   \---data
+    |   |   |   |   |   \---lang
+    |   |   |   |   +---export
+    |   |   |   |   |   +---examples
+    |   |   |   |   |   |   \---images
+    |   |   |   |   |   +---lang
+    |   |   |   |   |   +---libs
+    |   |   |   |   |   |   +---blob.js
+    |   |   |   |   |   |   +---fabric.js
+    |   |   |   |   |   |   +---FileSaver.js
+    |   |   |   |   |   |   +---jszip
+    |   |   |   |   |   |   +---pdfmake
+    |   |   |   |   |   |   \---xlsx
+    |   |   |   |   |   \---shapes
+    |   |   |   |   \---responsive
+    |   |   |   |       \---examples
+    |   |   |   |           \---images
+    |   |   |   \---themes
+    |   |   \---bs-3.3.5
+    |   |       +---css
+    |   |       +---fonts
+    |   |       \---js
+    |   \---uploadedImages
+    \---__pycache__
