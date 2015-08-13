@@ -61,16 +61,20 @@ def get_rawimages():
 def request_json():
     return jsonify(images=img2txtdata)
 
-
+#Change the following function to integrate the image to image search functionality with your code
 @search_service.route("/upload/image", methods=['POST'])
 def upload_image():
     logger.info("file save request arrived")
     file = request.files['file']
 
     response = {'failureReason': ""}
+
+    #Remove the following if and else conditions. Replace them with your code.
     if file.filename in filename2imageitem_map:
         file.save(app_config['upload_folder'] + "/" + file.filename)
+        #Assign an object like the img2txt json object here
         response['imgDetails'] = filename2imageitem_map[file.filename]
+        #assign array of URL to the following object
         response['similarImages'] = find_images_for_the_text(response['imgDetails']['words_predicted'].split(" "))
     else:
         response['failureReason'] = "We could not find details for this image"

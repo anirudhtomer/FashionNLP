@@ -1,5 +1,5 @@
 <div id="demoSelectorPanel" class="row">
-    <div ng-repeat="demotype in demotypeList" ng-class="{'col-md-3': true, 'demo-summary-box': demoTypeUrl!=demotype.templateUrl}">
+    <div ng-repeat="demotype in demotypeList" ng-class="{'col-md-3': !isDemoModeActive, 'col-md-4': isDemoModeActive, 'demo-summary-box': demoTypeUrl!=demotype.templateUrl}">
         <h2 ng-class="{'demo-summary-title': demoTypeUrl!=demotype.templateUrl, 'text-warning': demoTypeUrl==demotype.templateUrl}">{{demotype.title}}</h2>
 
         <p ng-class="{'demotype-description': true,'text-justify':true, 'demo-summary-description': demoTypeUrl!=demotype.templateUrl, 'text-warning': demoTypeUrl==demotype.templateUrl}">{{demotype.description}}</p>

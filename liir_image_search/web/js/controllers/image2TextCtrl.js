@@ -47,7 +47,7 @@ susana.controller(
             function getSelectedImageIds(){
                 var imgIdArray = [];
                 for(imgid in $scope.checkboxStates){
-                    if($scope.checkboxStates.hasOwnProperty(imgid)){
+                    if($scope.checkboxStates.hasOwnProperty(imgid) && $scope.checkboxStates[imgid]===true){
                         imgIdArray.push(parseInt(imgid));
                     }
                 }

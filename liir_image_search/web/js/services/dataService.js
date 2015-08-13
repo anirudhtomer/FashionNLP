@@ -13,10 +13,20 @@ susana.factory(
             var vocabTrie = TrieService.createNewTrie();
             var imageIndexByKeywordMap = {};
 
+            var demoModeActiveRequestComplete = false;
+            var demoModeActiveCallbacks = [];
+
             $http({method: 'POST', url: 'metadata/isdemomodeactive'}).success(function (data) {
                 if (angular.isDefined(data.demoModeActive)) {
                     demoModeActive = data.demoModeActive;
+
+                    for(var i = 0;i<demoModeActiveCallbacks.length;i++){
+                        demoModeActiveCallbacks[i](demoModeActive);
+                    }
+                    demoModeActiveCallbacks.length = 0;
                 }
+
+                demoModeActiveRequestComplete = true;
             });
 
             $http({method: 'POST', url: 'metadata/getmaxfileuploadsize'}).success(function (data) {
@@ -159,6 +169,15 @@ susana.factory(
                 },
                 'getMaxFileUploadSize': function () {
                     return maxFileUploadSize;
+                },
+                'registerCallbackDemoModeActive': function (callback){
+                    if(angular.isFunction(callback)){
+                        if(demoModeActiveRequestComplete===true){
+                            callback(demoModeActive);
+                        }else {
+                            demoModeActiveCallbacks.push(callback);
+                        }
+                    }
                 }
             };
         }]

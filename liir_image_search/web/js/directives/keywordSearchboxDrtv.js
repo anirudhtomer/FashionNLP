@@ -18,6 +18,11 @@ susana.directive('keywordSearchBox',
                 scope: {},
                 templateUrl: "html/keywordsearchbox.html",
                 link: function (scope, element, attrs) {
+                    if(angular.isString(attrs.keywordSearchBox)){
+                        scope.placeholder = attrs.keywordSearchBox;
+                    }else{
+                        scope.placeholder = "Enter search keywords";
+                    }
                 },
                 controller: function ($scope, $element, $attrs) {
 
