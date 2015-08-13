@@ -30,14 +30,14 @@ for img2txtitem in img2txtdata:
 
 def find_images_for_the_text(keywords):
     logger.debug(keywords)
-    image_url_set=txt2img.text2image(keywords, TEXT2IMAGE_COUNT)
+    filteredImagesSet=txt2img.text2image(keywords, TEXT2IMAGE_COUNT)
 
-    image_set = []
-    for imageurl in image_url_set:
-        image_set.append({'url': imageurl.split("data/")[1], 'score': 0})
+    for imageObject in filteredImagesSet:
+        imageObject['url'] = imageObject['url'].split("data/")[1]
+        imageObject['score'] = 0
 
-    logger.debug(image_set)
-    return image_set
+    logger.debug(filteredImagesSet)
+    return filteredImagesSet
 
 @search_service.route("/search/text2image", methods=['POST'])
 def get_images():
@@ -56,7 +56,6 @@ def get_rawimages():
 
     return jsonify(images=response)
 
-
 @search_service.route("/search/img2txt", methods=['POST'])
 def request_json():
     return jsonify(images=img2txtdata)
@@ -64,14 +63,13 @@ def request_json():
 #Change the following function to integrate the image to image search functionality with your code
 @search_service.route("/upload/image", methods=['POST'])
 def upload_image():
-    logger.info("file save request arrived")
     file = request.files['file']
+    logger.debug("Processing upload request for the name: " + file.filename)
+    file.save(app_config['upload_folder'] + "/" + file.filename)
 
     response = {'failureReason': ""}
-
-    #Remove the following if and else conditions. Replace them with your code.
+    #replave this code to use real image to image search
     if file.filename in filename2imageitem_map:
-        file.save(app_config['upload_folder'] + "/" + file.filename)
         #Assign an object like the img2txt json object here
         response['imgDetails'] = filename2imageitem_map[file.filename]
         #assign array of URL to the following object

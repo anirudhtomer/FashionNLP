@@ -49,6 +49,7 @@
                         </a>
                     </div>
                     <div class="col-md-8 text-center">
+                        <p ng-show="demoModeActive==false" class="text-muted lead">{{'Image ID: ' + images[$parent.$index*IMAGES_PER_ROW + imageNum].imgid}}</p>
                         <p class="text-primary lead">Original Words</p>
 
                         <ul class="original-words-ul">

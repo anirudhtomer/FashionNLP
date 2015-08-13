@@ -27,5 +27,3 @@ if __name__ == "__main__":
         logger.critical("Server couldn't be started: " + e.args[0])
 
 logger.info("Server: " + __name__ + " is up and running.")
-
-#http://swaroopsm.github.io/12-02-2012-Deploying-Python-Flask-on-Apache-using-mod_wsgi.html

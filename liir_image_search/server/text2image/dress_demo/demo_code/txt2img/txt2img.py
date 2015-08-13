@@ -8,7 +8,6 @@ split = 'test'
 dataset_fname = 'server/text2image/dress_demo/data/json/dataset_dress_all_{}.json'.format(split)
 dataset = DataProvider(dataset_fname=dataset_fname)
 
-
 # load the dictionary from file for word ids
 # Load true list
 rpath2 = 'server/text2image/dress_demo/data/data-processed/zappos-preprocessingfc7/test/text_visfc7/'
@@ -40,15 +39,15 @@ def text2image(keywords, total_images):
     img_scores = Stest.dot(model)
     # print "img_scores shape", img_scores.shape
 
-    top_img_ids = np.argsort(-img_scores, axis=1)
-    top_img_ids = top_img_ids.tolist()
+    top_img_indices = np.argsort(-img_scores, axis=1)
+    top_img_indices = top_img_indices.tolist()
 
-    image_path_array = []
-    for img_id in top_img_ids[0][0:total_images]:
-        predicted_img = dataset.dataset['items'][img_id]
-        image_path_array.append(predicted_img['folder'] + predicted_img['img_filename'])
+    filteredImageSet = []
+    for imgIndex in top_img_indices[0][0:total_images]:
+        predicted_img = dataset.dataset['items'][imgIndex]
+        filteredImageSet.append({'url': predicted_img['folder'] + predicted_img['img_filename'], 'imgid': predicted_img['imgid']})
 
-    return image_path_array
+    return filteredImageSet
 # print top_img_ids[0][0:5]
 
 

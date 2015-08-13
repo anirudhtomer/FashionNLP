@@ -16,6 +16,7 @@ def index():
 
 @static_page_service.route("/<path:url_path>", methods=['GET'])
 def request_static_file(url_path):
+    logger.debug(url_path)
     return static_page_service.send_static_file(url_path)
 
 logger.info("Blueprint: " + __name__ + " is loaded.")

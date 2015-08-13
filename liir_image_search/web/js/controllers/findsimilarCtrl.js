@@ -4,6 +4,8 @@ susana.controller(
         function ($scope, FileUploader, DataService) {
             $scope.IMAGES_PER_ROW  = 4;
 
+            $scope.demoModeActive = DataService.isDemoModeActive();
+
             $scope.resetActiveImage=function(){
                 $scope.activeImage = {
                     anyActive: false,

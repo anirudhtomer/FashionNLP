@@ -6,6 +6,8 @@ susana.controller(
             $scope.filteredImages = [];
             $scope.IMAGES_PER_ROW  = 4;
 
+            $scope.demoModeActive = DataService.isDemoModeActive();
+
             $scope.searchImages = function (filterKeywords) {
                 if (filterKeywords.length > 0) {
                     $http({
