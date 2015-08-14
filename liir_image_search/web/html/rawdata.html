@@ -32,7 +32,7 @@
         <div class="row image-row" ng-repeat="i in rowCountSequence track by $index">
             <div class="col-md-6 text-center image-item" ng-repeat="j in [0,1]"
                  ng-hide="($parent.$index*2 + j) >= filteredImages.length">
-                <h3 class="text-center">{{filteredImages[$parent.$index*2 + j].title}}</h3>
+                <h3 class="text-center text-muted">{{filteredImages[$parent.$index*2 + j].title}}</h3>
 
                 <div class="row">
                     <div class="col-xs-6">
@@ -40,13 +40,13 @@
                     </div>
 
                     <div class="col-xs-6">
-                        <h4 class="text-center">Description</h4>
+                        <h4 class="text-center text-primary">Description</h4>
 
-                        <p class="text-muted text-justify">{{filteredImages[$parent.$index*2 + j].description |
+                        <p class="text-justify">{{filteredImages[$parent.$index*2 + j].description |
                             NAFilter}}</p>
-                        <h4 class="text-center text-info">Features</h4>
+                        <h4 class="text-center text-primary">Features</h4>
                         <ul>
-                            <li class="text-left text-muted"
+                            <li class="text-left"
                                 ng-repeat="feature in filteredImages[$parent.$index*2 + j].features">{{feature}}
                             </li>
                         </ul>
