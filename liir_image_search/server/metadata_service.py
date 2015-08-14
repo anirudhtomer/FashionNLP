@@ -5,11 +5,18 @@ with open("logging.json", "r") as logging_file:
     logging.config.dictConfig(json.load(logging_file))
 logger = logging.getLogger("metadata_service")
 
-with open("config.json", "r") as config_file:
-    app_config = json.load(config_file)
+try:
+    with open("labels.json", "r") as labels_file:
+        app_labels = json.load(labels_file)
 
-with open(app_config['vocabulary_file'], "r") as vocab_file:
-    vocab_words = vocab_file.read().splitlines()
+    with open("config.json", "r") as config_file:
+        app_config = json.load(config_file)
+
+    with open(app_config['vocabulary_file'], "r") as vocab_file:
+        vocab_words = vocab_file.read().splitlines()
+
+except Exception as e:
+        logger.error("Error reading file: " + str(e))
 
 metadata_service = Blueprint("metadata_service", __name__)
 
@@ -26,6 +33,11 @@ else:
 def get_vocab():
     logger.debug("Request received for fetching vocabulary file")
     return jsonify(vocab=vocab_words)
+
+@metadata_service.route("/metadata/getlabels", methods=['POST'])
+def get_labels():
+    logger.debug("Request received for fetching labels")
+    return jsonify(labels=app_labels)
 
 @metadata_service.route("/metadata/isdemomodeactive", methods=['POST'])
 def is_demo_mode_active():

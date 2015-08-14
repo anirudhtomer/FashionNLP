@@ -15,6 +15,10 @@ susana.controller(
                 }
             };
 
+            DataService.registerCallbackAppLabels(function(appLabels){
+                $scope.appLabels = appLabels;
+            });
+
             $scope.isBrowserIE = false;
 
             var ua = window.navigator.userAgent;

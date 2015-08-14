@@ -32,11 +32,11 @@ try:
                 logger.debug("Table " + feedback_table_name + " created successfully")
                 dbconn.commit()
             except sqlite3.Error as e:
-                logger.error("Database service will not work: " + e.args[0])
+                logger.error("Database service will not work: " + str(e))
         cursor.close()
         dbconn.close()
 except sqlite3.Error as e:
-    logger.error("Database service will not work: " + e.args[0])
+    logger.error("Database service will not work: " + str(e))
 
 db_service = Blueprint("db_service", __name__)
 
@@ -78,8 +78,8 @@ def store_tags():
         dbconn_tags.close()
         return jsonify(success=True)
     except sqlite3.Error as e:
-        logger.error(e.args[0])
-        return jsonify(success=False, reason=e.args[0])
+        logger.error(str(e))
+        return jsonify(success=False, reason=str(e))
 
 
 @db_service.route("/store/misclassfiedimages", methods=['POST'])
@@ -109,8 +109,8 @@ def store_misclassifiedimages():
         dbconn_misclassified_images.close()
         return jsonify(success=True)
     except sqlite3.Error as e:
-        logger.error(e.args[0])
-        return jsonify(success=False, reason=e.args[0])
+        logger.error(str(e))
+        return jsonify(success=False, reason=str(e))
 
 
 logger.info("Blueprint: " + __name__ + " is loaded.")

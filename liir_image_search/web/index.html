@@ -58,11 +58,17 @@
 <body class="full-size" ng-controller="MainCtrl" ng-click="onBodyClicked()">
 <div id="main-header" class="jumbotron">
     <div class="container">
-        <h1 class="text-center">Fashion Meets Computer Vision and Natural Language Processing</h1>
+        <h1 class="text-center">{{appLabels.app_title}}</h1>
 
-        <p class="text-center">by Language Intelligence & Information Retrieval (LIIR) research team</p>
+        <blockquote class="blockquote-reverse">
+            <p class="text-justify">{{appLabels.app_description_para_1}}</p>
+            <p class="text-justify">{{appLabels.app_description_para_2}}</p>
+            <p class="text-justify">{{appLabels.app_description_para_3}}</p>
+            <a style="text-decoration: none;" target="_blank" ng-href="{{appLabels.app_description_weblink}}" ><footer class="text-white">{{appLabels.app_description_footer}}</footer></a>
+        </blockquote>
 
-        <p ng-show="isBrowserIE" class="text-center text-danger lead">You are using Internet Explorer. Some features will not work in this browser. Please use latest version of Chrome/Firefox</p>
+        <p ng-show="isBrowserIE" class="text-center text-danger lead">You are using Internet Explorer. Some features
+            will not work in this browser. Please use latest version of Chrome/Firefox</p>
     </div>
 </div>
 

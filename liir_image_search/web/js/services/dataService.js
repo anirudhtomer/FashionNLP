@@ -12,9 +12,12 @@ susana.factory(
 
             var vocabTrie = TrieService.createNewTrie();
             var imageIndexByKeywordMap = {};
+            var app_labels = {};
 
             var demoModeActiveRequestComplete = false;
+            var appLabelsRequestComplete = false;
             var demoModeActiveCallbacks = [];
+            var appLabelsCallbacks = [];
 
             $http({method: 'POST', url: 'metadata/isdemomodeactive'}).success(function (data) {
                 if (angular.isDefined(data.demoModeActive)) {
@@ -28,6 +31,20 @@ susana.factory(
 
                 demoModeActiveRequestComplete = true;
             });
+
+            $http({method: 'POST', url: 'metadata/getlabels'}).success(function (data) {
+                if (angular.isDefined(data.labels)) {
+                    app_labels = data.labels;
+
+                    for(var i = 0;i<appLabelsCallbacks.length;i++){
+                        appLabelsCallbacks[i](app_labels);
+                    }
+                    appLabelsCallbacks.length = 0;
+                }
+
+                appLabelsRequestComplete = true;
+            });
+
 
             $http({method: 'POST', url: 'metadata/getmaxfileuploadsize'}).success(function (data) {
                 if (angular.isDefined(data.maxFileUploadSize)) {
@@ -157,6 +174,7 @@ susana.factory(
                 return images;
             }
 
+
             return {
                 'getVocabulary': getVocabulary,
                 'getVocabTrie': getVocabTrie,
@@ -167,6 +185,9 @@ susana.factory(
                 'isDemoModeActive': function () {
                     return demoModeActive;
                 },
+                'getAppLabels': function(){
+                    return app_labels;
+                },
                 'getMaxFileUploadSize': function () {
                     return maxFileUploadSize;
                 },
@@ -176,6 +197,15 @@ susana.factory(
                             callback(demoModeActive);
                         }else {
                             demoModeActiveCallbacks.push(callback);
+                        }
+                    }
+                },
+                'registerCallbackAppLabels': function (callback){
+                    if(angular.isFunction(callback)){
+                        if(appLabelsRequestComplete===true){
+                            callback(app_labels);
+                        }else {
+                            appLabelsCallbacks.push(callback);
                         }
                     }
                 }

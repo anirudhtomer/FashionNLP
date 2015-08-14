@@ -13,8 +13,8 @@
 
   "server_port": 8076,
   "feedback_table_name": "feedback",
-  "text2image_count": 15,
-  "demo_mode_active": false,
+  "text2image_count": 16,
+  "demo_mode_active": true,
 
   "__COMMENT4__": "DO NOT CHANGE THE PROPERTY 'upload_folder'. IT IS FOR INTERNAL USE",
   "upload_folder": "web/uploadedImages"

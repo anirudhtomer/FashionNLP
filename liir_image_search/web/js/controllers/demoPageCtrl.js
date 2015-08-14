@@ -32,6 +32,22 @@ susana.controller(
                         templateUrl: "html/findsimilar.html"
                     });
                 }
+
+                DataService.registerCallbackAppLabels(function(appLabels){
+                    $scope.demotypeList[0].title = appLabels.rawdata_title;
+                    $scope.demotypeList[0].description = appLabels.rawdata_description;
+
+                    $scope.demotypeList[1].title = appLabels.txt2img_title;
+                    $scope.demotypeList[1].description = appLabels.txt2img_description;
+
+                    $scope.demotypeList[2].title = appLabels.img2txt_title;
+                    $scope.demotypeList[2].description = appLabels.img2txt2_description;
+
+                    if(isDemoModeActive===false){
+                        $scope.demotypeList[3].title = appLabels.find_similar_images_title;
+                        $scope.demotypeList[3].description = appLabels.find_similar_images_description;
+                    }
+                });
             });
 
             $scope.showDemo = function (templateUrl) {

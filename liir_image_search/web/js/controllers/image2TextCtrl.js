@@ -15,9 +15,12 @@ susana.controller(
             $scope.images = [];
             $scope.errorMsg = "";
 
+            $scope.appLabels = DataService.getAppLabels();
             $scope.demoModeActive = DataService.isDemoModeActive();
             $scope.checkboxStates = {};
             $scope.tags = "";
+
+
 
             $scope.loadMoreImages = function () {
                 if ($scope.imgRowCountSequence.length * $scope.IMAGES_PER_ROW < $scope.images.length) {
