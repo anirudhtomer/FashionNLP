@@ -22,8 +22,8 @@ logger.info("All blueprints are registered")
 
 if __name__ == "__main__":
     try:
-        app.run(port=app_config['server_port'], debug=False, use_reloader=False, use_evalex=False)
+        app.run(host='0.0.0.0', port=app_config['server_port'], debug=False, use_reloader=False, use_evalex=False)
     except Exception as e:
-        logger.critical("Server couldn't be started: ", e.args[0])
+        logger.critical("Server couldn't be started: " + str(e.args[0]))
 
-logger.info("Server: " + __name__ + " is up and running.")
+logger.info("Server: " + __name__ + " is up and running on port " + str(app_config['server_port']))

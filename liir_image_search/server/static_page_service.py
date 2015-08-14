@@ -12,6 +12,7 @@ static_page_service = Blueprint("static_page_service" ,__name__, static_folder="
 
 @static_page_service.route("/", methods=['GET'])
 def index():
+    logger.debug("Request for index.html arrived")
     return static_page_service.send_static_file("index.html")
 
 @static_page_service.route("/<path:url_path>", methods=['GET'])
