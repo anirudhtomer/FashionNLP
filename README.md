@@ -7,12 +7,16 @@ Some files are not checked in because they were quite big. The directory Structu
 The server might not recognize the packages if you run from inside the "liir_image_search" folder. In that case add these lines on top of 
 __init.py__ file.
 
+```
 import os,sys
-
 sys.path.append("/home/muse/multimodal_search/NLPImageSearch")
+```
 
-Also the run the server as a background process which runs even if you close the shell. Like this
+Also the run the server as a background process which runs even if you close the shell. e.g.
+
+```
 $ nohup python __init.py__ &
+```
 
 ### Extending the functionalities on server side
 For adding the 'Find similar images' functionality you will have to send a response object of the form given in the file "findSimilarImagesResponseObject.JPG".
