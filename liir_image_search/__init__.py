@@ -24,6 +24,6 @@ if __name__ == "__main__":
     try:
         app.run(host='0.0.0.0', port=app_config['server_port'], debug=False, use_reloader=False, use_evalex=False)
     except Exception as e:
-        logger.critical("Server couldn't be started: " + str(e.args[0]))
+        logger.critical("Server couldn't be started: " + str(e))
 
 logger.info("Server: " + __name__ + " is up and running on port " + str(app_config['server_port']))

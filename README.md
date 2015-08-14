@@ -5,7 +5,7 @@ Some files are not checked in because they were quite big. The directory Structu
 
 ### Problems during deployment
 The server might not recognize the packages if you run from inside the "liir_image_search" folder. In that case add these lines on top of 
-__init.py__ file.
+__init.py__ file. For e.g.
 
 ```
 import os,sys
